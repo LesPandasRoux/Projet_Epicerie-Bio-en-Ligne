@@ -1,0 +1,74 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Liste clients</title>
+</h:head>
+<h:body>
+<p:panel>
+	<h:form>
+		<h:outputText value="CLIENTs : "></h:outputText>
+		<p:dataTable id="users" var="u" value="#{userMB.userList}"
+			style="width: 10%">
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="ID" />
+				</f:facet>
+				<h:inputText value="#{u.idUser}" size="10" rendered="#{u.editable}" />
+				<h:outputText value="#{u.idUser}" rendered="#{not u.editable}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Nom" />
+				</f:facet>
+				<h:inputText value="#{u.nom}" size="10" rendered="#{u.editable}" />
+				<h:outputText value="#{u.nom}" rendered="#{not u.editable}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Prenom" />
+				</f:facet>
+				<h:inputText value="#{u.prenom}" size="10" rendered="#{u.editable}" />
+				<h:outputText value="#{u.prenom}" rendered="#{not u.editable}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Login" />
+				</f:facet>
+				<h:inputText value="#{u.login}" size="10" rendered="#{u.editable}" />
+				<h:outputText value="#{u.login}" rendered="#{not u.editable}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Password" />
+				</f:facet>
+				<h:inputText value="#{u.pw}" size="10" rendered="#{u.editable}" />
+				<h:outputText value="#{u.pw}" rendered="#{not u.editable}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Email" />
+				</f:facet>
+				<h:outputText value="#{u.email}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">Action</f:facet>
+				<h:commandLink value="Edit" action="#{userMB.editUser(u)}"
+					rendered="#{not u.editable}" />
+
+			</p:column>
+
+
+		</p:dataTable>
+		<p:commandButton value="Save Changes" action="#{userMB.saveAction}" />
+	</h:form>
+	</p:panel>
+</h:body>
+
+</html>
