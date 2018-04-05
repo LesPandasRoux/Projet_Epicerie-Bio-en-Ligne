@@ -49,4 +49,6 @@ public interface IUserService {
 	 * @return List - User list
 	 */
 	public List<User> getUsers();
+	
+	public User findbyEmail(String email);
 }
