@@ -58,7 +58,7 @@ public class ProduitManagedBean implements Serializable {
 
 	public void onRowEdit(RowEditEvent event) {
 
-		FacesMessage msg = new FacesMessage("Le produit suivant a été édité:",
+		FacesMessage msg = new FacesMessage("Le produit suivant a Ã©tÃ© Ã©ditÃ©:",
 				((Produit) event.getObject()).getLibelle());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		getProduitService().updateProduit((Produit) event.getObject());
@@ -66,7 +66,7 @@ public class ProduitManagedBean implements Serializable {
 	}
 
 	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Edition annulé",
+		FacesMessage msg = new FacesMessage("Edition annulÃ©",
 				((Produit) event.getObject()).getLibelle());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 //		getProduitService().deleteProduit((Produit) event.getObject());
@@ -173,6 +173,7 @@ public class ProduitManagedBean implements Serializable {
 			if (getTypes()[0].equals("ProduitFrais")) {
 			ProduitFrais produit = new ProduitFrais(getLibelle(), getPrix(), getQteStock(), getUrlimg(), getDureeValidite());
 			produitService.addProduit(produit);
+			
 			}
 			
 			if (getTypes()[0].equals("Epicerie")) {
@@ -181,6 +182,10 @@ public class ProduitManagedBean implements Serializable {
 			}
 		} catch (DataAccessException e) {
 			e.printStackTrace();
+		}
+		finally {
+			//Pour mettre Ã  jour la datatable, mettre Ã  jour la liste
+			produitList = produitService.getProduits();
 		}
 	}
 
