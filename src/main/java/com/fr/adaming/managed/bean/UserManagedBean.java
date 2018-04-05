@@ -6,10 +6,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +35,15 @@ import com.fr.adaming.service.IUserService;
  */
 
 @Controller(value = "userMB")
-@SessionScoped
+@RequestScoped
 public class UserManagedBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private static final String SUCCESS = "success";
 	private static final String ERROR = "error";
+	private static final String PANIER = "panier";
+	private static final String CONNEXION = "connexion";
+	private static final String CREACOMPTE = "creationCompte";
 
 	@Autowired
 	IUserService userService;
@@ -59,7 +65,7 @@ public class UserManagedBean implements Serializable {
 	//
 	public void onRowEdit(RowEditEvent event) {
 
-        FacesMessage msg = new FacesMessage("Le client suivant a été édité:",((User) event.getObject()).getNom());
+        FacesMessage msg = new FacesMessage("Le client suivant a Ã©tÃ© Ã©ditÃ©:",((User) event.getObject()).getNom());
         FacesContext.getCurrentInstance().addMessage(null, msg);
 		getUserService().updateUser((User)event.getObject());
         
@@ -109,9 +115,32 @@ public class UserManagedBean implements Serializable {
 		this.setPw("");
 	}
 
+	public String verifUser() {
+		User user = getUserService().findbyEmail(email);
+		if (user !=null) {
+			if (user.getPw().equals(pw)) {
+				return SUCCESS;
+			}
+		}
+		return ERROR1;
+		
+	}
+	
+	public String editUser(User user) {
+		user.setEditable(true);
+		return null;
+	}
+
+	public String saveAction() { 
+		//get all existing value but set "editable" to false    
+		for (User u : userService.getUsers()){    
+			u.setEditable(false);   
+			}   
+		//return to current page   
+		return null;  
+	}
+	
 	public List<User> getUserList() {
-//		USERLIST = NEW ARRAYLIST<USER>();
-//		USERLIST.ADDALL(GETUSERSERVICE().GETUSERS());
 		return userList;
 	}
 
