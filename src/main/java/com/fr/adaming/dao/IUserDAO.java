@@ -39,4 +39,5 @@ public interface IUserDAO {
 	 */
 	public List<User> getUsers();
 
+	public User getUserByEmail(String email);
 }
