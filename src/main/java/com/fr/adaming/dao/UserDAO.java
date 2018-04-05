@@ -2,6 +2,7 @@ package com.fr.adaming.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -69,13 +70,21 @@ public class UserDAO implements IUserDAO{
 	 * @return User 
 	 */
 	public User getUserById(int id) {
-	
-		
 		User User = (User) getSessionFactory().getCurrentSession().get(User.class, id);
 		
 		        return User;
-
 	}
+	
+	public User getUserByEmail(String email) {
+		
+		Query query= sessionFactory.getCurrentSession().
+		        createQuery("from User where email=:email");
+		query.setParameter("email", email);
+		User user = (User) query.uniqueResult();
+
+		        return user;
+	}
+	
 
 	/**
 	 * Get User List
