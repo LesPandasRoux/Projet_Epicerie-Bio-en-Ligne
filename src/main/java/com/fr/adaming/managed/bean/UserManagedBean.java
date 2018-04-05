@@ -119,10 +119,10 @@ public class UserManagedBean implements Serializable {
 		User user = getUserService().findbyEmail(email);
 		if (user !=null) {
 			if (user.getPw().equals(pw)) {
-				return SUCCESS;
+				return PANIER;
 			}
 		}
-		return ERROR1;
+		return CONNEXION;
 		
 	}
 	
