@@ -17,4 +17,5 @@ public interface IProduitDAO {
 	public Produit getProduitById(int id);
 	
 	public List<Produit> getProduits();
+
 }

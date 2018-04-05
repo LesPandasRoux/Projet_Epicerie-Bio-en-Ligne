@@ -17,8 +17,19 @@ public class Epicerie extends Produit {
 		this.poids = poids;
 	}
 
-	public Epicerie(Long idProduit, String libelle, int prix, int qteStock, int poids) {
+	public Epicerie(Long idProduit, String libelle, float prix, int qteStock, int poids) {
 		super(idProduit, libelle, prix, qteStock);
+		this.poids = poids;
+	}
+	
+
+	public Epicerie(String libelle, float prix, int qteStock, String urlimg, int poids) {
+		super(libelle, prix, qteStock, urlimg);
+		this.poids = poids;
+	}
+
+	public Epicerie(Long idProduit, String libelle, float prix, int qteStock, String urlimg, int poids) {
+		super(idProduit, libelle, prix, qteStock, urlimg);
 		this.poids = poids;
 	}
 

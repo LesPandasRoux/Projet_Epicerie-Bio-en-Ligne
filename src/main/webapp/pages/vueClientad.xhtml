@@ -6,69 +6,90 @@
 	<title>Liste clients</title>
 </h:head>
 <h:body>
-<p:panel>
-	<h:form>
-		<h:outputText value="CLIENTs : "></h:outputText>
-		<p:dataTable id="users" var="u" value="#{userMB.userList}"
-			style="width: 10%">
 
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="ID" />
-				</f:facet>
-				<h:inputText value="#{u.idUser}" size="10" rendered="#{u.editable}" />
-				<h:outputText value="#{u.idUser}" rendered="#{not u.editable}" />
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="Nom" />
-				</f:facet>
-				<h:inputText value="#{u.nom}" size="10" rendered="#{u.editable}" />
-				<h:outputText value="#{u.nom}" rendered="#{not u.editable}" />
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="Prenom" />
-				</f:facet>
-				<h:inputText value="#{u.prenom}" size="10" rendered="#{u.editable}" />
-				<h:outputText value="#{u.prenom}" rendered="#{not u.editable}" />
-			</p:column>
+	<h:form id="form1">
+		<p:panel>
+			<p:growl id="msgs" showDetail="true" />
 
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="Login" />
-				</f:facet>
-				<h:inputText value="#{u.login}" size="10" rendered="#{u.editable}" />
-				<h:outputText value="#{u.login}" rendered="#{not u.editable}" />
-			</p:column>
+			<p:dataTable id="dataTable" var="u" value="#{userMB.userList}"
+				editable="true" editMode="row" rowKey="#{u.idUser}" paginator="true" rows="10">
+				<f:facet name="header">  
+                        Liste des clients 
+                    </f:facet>
+				<p:ajax event="rowEdit" listener="#{userMB.onRowEdit}"
+					update=":form1:msgs" />
+				<p:ajax event="rowEditCancel" listener="#{userMB.onRowCancel}"
+					update=":form1:msgs" />
+				<p:ajax event="rowEdit" listener="#{userMB.onRowEdit}"
+					update="form1:dataTable" />
+				<p:ajax event="rowEditCancel" listener="#{userMB.onRowCancel}"
+					update="form1:dataTable" />
 
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="Password" />
-				</f:facet>
-				<h:inputText value="#{u.pw}" size="10" rendered="#{u.editable}" />
-				<h:outputText value="#{u.pw}" rendered="#{not u.editable}" />
-			</p:column>
+				<p:column headerText="ID" style="width:50px">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{u.idUser}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{u.idUser}" label="ID" />
+						</f:facet>
 
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="Email" />
-				</f:facet>
-				<h:outputText value="#{u.email}" />
-			</p:column>
+					</p:cellEditor>
+				</p:column>
 
-			<p:column>
-				<f:facet name="header">Action</f:facet>
-				<h:commandLink value="Edit" action="#{userMB.editUser(u)}"
-					rendered="#{not u.editable}" />
+				<p:column headerText="Nom">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{u.nom}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{u.nom}" label="Nom" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
 
-			</p:column>
+				<p:column headerText="Prenom">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{u.prenom}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{u.prenom}" label="Prenom" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Password">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{u.pw}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{u.pw}" label="Password" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Email" style="width:150px">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{u.email}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{u.email}" label="Email" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
 
 
-		</p:dataTable>
-		<p:commandButton value="Save Changes" action="#{userMB.saveAction}" />
+				<p:column headerText="Editer" style="width:50px">
+					<p:rowEditor />
+				</p:column>
+			</p:dataTable>
+
+		</p:panel>
 	</h:form>
-	</p:panel>
+
 </h:body>
 
 </html>

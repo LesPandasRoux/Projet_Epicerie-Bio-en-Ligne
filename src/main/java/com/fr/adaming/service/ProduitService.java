@@ -60,8 +60,14 @@ public class ProduitService implements IProduitService {
 	private long i=1l;
 	@PostConstruct
 	private void initProduit() {
-		addProduit(new Produit(i++, "banane", 1, 50));
-		addProduit(new Produit(i++, "kiwi", 2, 50));
+		addProduit(new ProduitFrais(i++, "pain", 1, 50,"pain.jpg", 1));
+		addProduit(new ProduitFrais(i++, "banane", 0.3f ,100,"banane.jpg", 10));
+		addProduit(new ProduitFrais(i++, "kiwi", 0.5f ,100,"kiwi.jpg", 10));
+		addProduit(new ProduitFrais(i++, "pommeVerte", 0.2f ,100,"pommeVerte.jpg", 10));
+		addProduit(new ProduitFrais(i++, "pommeRouge", 0.2f ,100,"pommeRouge.jpg", 10));
+		addProduit(new Epicerie(i++, "noix", 1, 50,"noix.jpg",100));
+		addProduit(new Epicerie(i++, "chocolat", 1.2f, 100,"chocolat.jpg",100));
 	}
+
 
 }

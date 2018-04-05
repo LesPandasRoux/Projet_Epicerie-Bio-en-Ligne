@@ -32,7 +32,7 @@ ICommandeService commandeService;
 	
 	List<Commande> commandeList;
 	
-	public String addCommande() {
+	public void addCommande() {
 		try {
 			Commande commande = new Commande();
 			commande.setRefCMD(getRefCMD());;
@@ -40,11 +40,10 @@ ICommandeService commandeService;
 			commande.setDateCMD(getDateCMD());
 			commande.setEtatCommande(getEtatCommande());
 			commandeService.addCommande(commande);
-			return null;
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		} 	
-		return null;
+		
 	}
 	
 
@@ -54,6 +53,7 @@ ICommandeService commandeService;
 		this.setDateCMD(null);
 		this.setEtatCommande(null);
 	}
+	
 
 	public List<Commande> getCommandeList() {
 //		commandeList = new ArrayList<Commande>();

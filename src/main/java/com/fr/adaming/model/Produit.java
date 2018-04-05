@@ -1,5 +1,6 @@
 package com.fr.adaming.model;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -27,9 +28,12 @@ public class Produit {
 
 	private String libelle;
 	
-	private int prix;
+	private float prix;
 	
 	private int qteStock;
+	
+	private String urlimg;
+	
 	
 	@ManyToMany(mappedBy="produits")
 	private List<Commande> commandes;
@@ -50,11 +54,11 @@ public class Produit {
 		this.libelle = libelle;
 	}
 
-	public int getPrix() {
+	public float getPrix() {
 		return prix;
 	}
 
-	public void setPrix(int prix) {
+	public void setPrix(float prix) {
 		this.prix = prix;
 	}
 
@@ -73,14 +77,32 @@ public class Produit {
 	public void setIdProduit(Long idProduit) {
 		this.idProduit = idProduit;
 	}
+	
+	
 
-	public Produit(Long idProduit, String libelle, int prix, int qteStock) {
+	public String getUrlimg() {
+		return urlimg;
+	}
+
+	public void setUrlimg(String urlimg) {
+		this.urlimg = urlimg;
+	}
+
+	public Produit(Long idProduit, String libelle, float prix, int qteStock) {
 		super();
 		this.idProduit = idProduit;
 		this.libelle = libelle;
 		this.prix = prix;
 		this.qteStock = qteStock;
+	}
 
+	public Produit(Long idProduit, String libelle, float prix, int qteStock, String urlimg) {
+		super();
+		this.idProduit = idProduit;
+		this.libelle = libelle;
+		this.prix = prix;
+		this.qteStock = qteStock;
+		this.urlimg = urlimg;
 	}
 
 	public Produit() {
@@ -88,5 +110,16 @@ public class Produit {
 	}
 
 
+	public Produit(String libelle, float prix, int qteStock, String urlimg) {
+		super();
+		this.libelle = libelle;
+		this.prix = prix;
+		this.qteStock = qteStock;
+		this.urlimg = urlimg;
+	}
+	
+	
+
+	
 	
 }

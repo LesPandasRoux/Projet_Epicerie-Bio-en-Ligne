@@ -20,17 +20,13 @@ public class User {
 
 	private String prenom;
 
-	private String login;
-
 	private String pw;
 
 	private String email;
-	
-	private boolean editable=false;
+
 
 	@OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
 	private List<Commande> commande;
-	
 	
 
 	public User() {
@@ -42,7 +38,6 @@ public class User {
 		this.idUser = idUser;
 		this.nom = nom;
 		this.prenom = prenom;
-		this.login = login;
 		this.pw = pw;
 		this.email = email;
 	}
@@ -79,14 +74,6 @@ public class User {
 		this.prenom = prenom;
 	}
 
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
 	public String getPw() {
 		return pw;
 	}
@@ -103,12 +90,65 @@ public class User {
 		this.email = email;
 	}
 
-	public boolean isEditable() {
-		return editable;
+	
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((commande == null) ? 0 : commande.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + idUser;
+		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
+		result = prime * result + ((prenom == null) ? 0 : prenom.hashCode());
+		result = prime * result + ((pw == null) ? 0 : pw.hashCode());
+		return result;
 	}
 
-	public void setEditable(boolean editable) {
-		this.editable = editable;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (commande == null) {
+			if (other.commande != null)
+				return false;
+		} else if (!commande.equals(other.commande))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (idUser != other.idUser)
+			return false;
+		if (nom == null) {
+			if (other.nom != null)
+				return false;
+		} else if (!nom.equals(other.nom))
+			return false;
+		if (prenom == null) {
+			if (other.prenom != null)
+				return false;
+		} else if (!prenom.equals(other.prenom))
+			return false;
+		if (pw == null) {
+			if (other.pw != null)
+				return false;
+		} else if (!pw.equals(other.pw))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "User [idUser=" + idUser + ", nom=" + nom + ", prenom=" + prenom + ", pw=" + pw
+				+ ", email=" + email + "]";
 	}
 	
 	

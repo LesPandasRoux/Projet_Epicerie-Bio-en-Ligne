@@ -16,8 +16,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.fr.adaming.dao.IUserDAO;
 import com.fr.adaming.model.User;
+import com.fr.adaming.dao.IUserDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/applicationContext.xml")

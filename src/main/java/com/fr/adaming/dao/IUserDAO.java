@@ -38,4 +38,5 @@ public interface IUserDAO {
 	 * 
 	 */
 	public List<User> getUsers();
+
 }

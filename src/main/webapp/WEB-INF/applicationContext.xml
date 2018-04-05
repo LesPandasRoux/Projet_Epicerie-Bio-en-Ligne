@@ -15,13 +15,21 @@
 	<context:annotation-config />
 	<context:spring-configured />
 
+<!-- 	<bean id="UserService" class="com.fr.adaming.service.UserService"> -->
+<!-- 		<property name="userDAO" ref="UserDAO"></property> -->
+<!-- 	</bean> -->
+
+<!-- 	<bean id="UserDAO" class="com.fr.adaming.dao.UserDAO"> -->
+<!-- 		<property name="sessionFactory" ref="SessionFactory"></property> -->
+<!-- 	</bean> -->
+
 	<!-- Data Source Declaration -->
 	<bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/test?createDatabaseIfNotExist=true" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/test" />
 		<property name="user" value="root" />
-		<property name="password" value="1tsnotagoodidee" />
+		<property name="password" value="root" />
 		<property name="maxPoolSize" value="10" />
 		<property name="maxStatements" value="0" />
 		<property name="minPoolSize" value="5" />
@@ -38,7 +46,6 @@
 				<value>com.fr.adaming.model.Commande</value>
 				<value>com.fr.adaming.model.Epicerie</value>
 				<value>com.fr.adaming.model.ProduitFrais</value>
-				<value>com.fr.adaming.model.Panier</value>
 
 			</list>
 		</property>
