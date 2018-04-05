@@ -113,10 +113,10 @@ public class UserService implements IUserService {
 	private int i=1;
 	@PostConstruct
 	private void init() {
-		addUser(new User(i++, "Didier", "Pelat","DP001","pelat","didier.pelat@gmailcom"));
-		addUser(new User(i++, "Laure", "Bourgois","LB002","bougoit","laure.bourgois@gmailcom"));
-		addUser(new User(i++, "Sylvain", "Henry","SH003","henry","sylvain.henry@gmail.com"));
-		addUser(new User(i++, "Jim", "Alec","JA004","alec","jim.alec@gmail.com"));
+		addUser(new User(i++, "Didier", "Pelat","DP001","didier.pelat@gmailcom"));
+		addUser(new User(i++, "Laure", "Bourgois","LB002","laure.bourgois@gmailcom"));
+		addUser(new User(i++, "Sylvain", "Henry","SH003","sylvain.henry@gmail.com"));
+		addUser(new User(i++, "Jim", "Alec","JA004","jim.alec@gmail.com"));
 	}
 	
 }
