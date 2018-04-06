@@ -2,7 +2,7 @@ package com.fr.adaming.model;
 
 public class Administrateur {
 
-	private String login = "admin";
+	private String email = "admin@admin";
 	private String pw = "admin";
 
 	public Administrateur() {
@@ -11,11 +11,11 @@ public class Administrateur {
 	}
 
 	public String getLogin() {
-		return login;
+		return email;
 	}
 
 	public void setLogin(String login) {
-		this.login = login;
+		this.email = login;
 	}
 
 	public String getPw() {

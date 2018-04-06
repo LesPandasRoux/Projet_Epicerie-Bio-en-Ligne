@@ -23,6 +23,8 @@ public class User {
 	private String pw;
 
 	private String email;
+	
+	private boolean editable;
 
 
 	@OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
@@ -33,7 +35,7 @@ public class User {
 		super();
 	}
 
-	public User(int idUser, String prenom,String nom, String login, String pw, String email) {
+	public User(int idUser, String prenom,String nom, String pw, String email) {
 		super();
 		this.idUser = idUser;
 		this.nom = nom;
@@ -90,8 +92,13 @@ public class User {
 		this.email = email;
 	}
 
-	
+	public boolean isEditable() {
+		return editable;
+	}
 
+	public void setEditable(boolean editable) {
+		this.editable = editable;
+	}
 
 	@Override
 	public int hashCode() {
