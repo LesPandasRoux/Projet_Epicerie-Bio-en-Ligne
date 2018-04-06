@@ -13,6 +13,7 @@ import org.springframework.web.method.annotation.SessionAttributesHandler;
 
 import com.fr.adaming.model.Administrateur;
 import com.fr.adaming.model.User;
+import com.fr.adaming.service.IAdminService;
 import com.fr.adaming.service.IUserService;
 
 @Controller(value = "sessionMB")
@@ -29,6 +30,7 @@ public class SessionManagedBean implements Serializable{
 	
 	@Autowired
 	IUserService userService;
+	IAdminService adminService;
 
 	User user;
 	Administrateur admin;
@@ -47,7 +49,7 @@ public class SessionManagedBean implements Serializable{
 	}
 	
 	public String verifAdmin() {
-		if(email.equals("admin") && pw.equals("admin")) {
+		if(email.equals("admin@admin") && pw.equals("admin")) {
 			return SUCCESSAD;
 		}
 		else return ERROR1;
@@ -59,6 +61,14 @@ public class SessionManagedBean implements Serializable{
 
 	public void setUserService(IUserService userService) {
 		this.userService = userService;
+	}
+
+	public IAdminService getAdminService() {
+		return adminService;
+	}
+
+	public void setAdminService(IAdminService adminService) {
+		this.adminService = adminService;
 	}
 	
 
