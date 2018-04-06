@@ -5,10 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.RowEditEvent;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -16,6 +20,10 @@ import org.springframework.stereotype.Controller;
 
 import com.fr.adaming.model.User;
 import com.fr.adaming.service.IUserService;
+
+import javafx.scene.control.TableColumn.CellEditEvent;
+
+
 
 /**
  * 
@@ -28,13 +36,15 @@ import com.fr.adaming.service.IUserService;
  */
 
 @Controller(value = "userMB")
-@SessionScoped
+@RequestScoped
 public class UserManagedBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private static final String SUCCESS = "panier";
-	private static final String ERROR1 = "connexion";
-	private static final String ERROR = "creationCompte";
+	private static final String SUCCESS = "success";
+	private static final String ERROR = "error";
+	private static final String PANIER = "panier";
+	private static final String CONNEXION = "connexionUser";
+	private static final String CREACOMPTE = "creationCompte";
 
 	@Autowired
 	IUserService userService;
@@ -44,12 +54,42 @@ public class UserManagedBean implements Serializable {
 	private int id;
 	private String name;
 	private String surname;
-	private String login;
 	private String pw;
 	private String email;
-//	private int empty;
+	
+	 @PostConstruct
+	    public void init() {
+	      userList=userService.getUsers();
+	    }
+	 
+	
+	//
+	public void onRowEdit(RowEditEvent event) {
 
-
+        FacesMessage msg = new FacesMessage("Le client suivant a ete edite:",((User) event.getObject()).getNom());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+		getUserService().updateUser((User)event.getObject());
+        
+    }
+	
+	   public void onRowCancel(RowEditEvent event) {
+	        FacesMessage msg = new FacesMessage("Edition annule",((User) event.getObject()).getNom());
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+//	        userList.remove((User) event.getObject());
+//	        getUserService().deleteUser((User) event.getObject());
+	    }
+	   
+	    
+//	    public void onCellEdit(CellEditEvent event) {
+//	        Object oldValue = event.getOldValue();
+//	        Object newValue = event.getNewValue();
+//	        if(newValue != null && !newValue.equals(oldValue)) {
+//	            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+//	            FacesContext.getCurrentInstance().addMessage(null, msg);
+//	        }
+//	    }
+     
+    //
 	public String addUser() {
 		try {
 			User user = new User();
@@ -57,7 +97,6 @@ public class UserManagedBean implements Serializable {
 			user.setNom(getName());
 			user.setPrenom(getSurname());
 			user.setEmail(getEmail());
-			user.setLogin(getLogin());
 			user.setPw(getPw());
 			userService.addUser(user);
 			return SUCCESS;
@@ -67,17 +106,27 @@ public class UserManagedBean implements Serializable {
 
 		return ERROR;
 	}
-	
+
+
+	public void reset() {
+		this.setId(0);
+		this.setName("");
+		this.setSurname("");
+		this.setEmail("");
+		this.setPw("");
+	}
+
 	public String verifUser() {
 		User user = getUserService().findbyEmail(email);
 		if (user !=null) {
 			if (user.getPw().equals(pw)) {
-				return SUCCESS;
+				return PANIER;
 			}
 		}
-		return ERROR1;
+		return CONNEXION;
 		
 	}
+	
 	public String editUser(User user) {
 		user.setEditable(true);
 		return null;
@@ -91,19 +140,8 @@ public class UserManagedBean implements Serializable {
 		//return to current page   
 		return null;  
 	}
-
-	public void reset() {
-		this.setId(0);
-		this.setName("");
-		this.setSurname("");
-		this.setEmail("");
-		this.setLogin("");
-		this.setPw("");
-	}
-
+	
 	public List<User> getUserList() {
-		userList = new ArrayList<User>();
-		userList.addAll(getUserService().getUsers());
 		return userList;
 	}
 
@@ -143,14 +181,6 @@ public class UserManagedBean implements Serializable {
 		this.surname = surname;
 	}
 
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
 	public String getPw() {
 		return pw;
 	}
@@ -167,18 +197,4 @@ public class UserManagedBean implements Serializable {
 		this.email = email;
 	}
 
-//	public void setEmpty(int empty) {
-//		//this.isEmpty = isEmpty;
-//		if (verifUser() != SUCCESS) {
-//			this.empty = 1;
-//		}else {
-//			this.empty = 0;
-//		}
-//	}
-//
-//	public int isEmpty() {
-//		return empty;
-//	}
-
-	
 }
