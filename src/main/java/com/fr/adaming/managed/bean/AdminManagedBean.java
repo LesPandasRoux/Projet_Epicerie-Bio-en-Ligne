@@ -26,7 +26,7 @@ public class AdminManagedBean implements Serializable{
 	
 	List<Administrateur> adminList;
 	
-	private String login;
+	private String email;
 	private String password;
 	
 	/**
@@ -49,7 +49,7 @@ public class AdminManagedBean implements Serializable{
 //	}
 	
 	public String verifAdmin() {
-		if(login.equals("admin") && password.equals("admin")) {
+		if(email.equals("admin@admin") && password.equals("admin")) {
 			return SUCCESSAD;
 		}
 		else return ERRORAD;
@@ -94,11 +94,11 @@ public class AdminManagedBean implements Serializable{
 	}
 
 	public String getLogin() {
-		return login;
+		return email;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setLogin(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {

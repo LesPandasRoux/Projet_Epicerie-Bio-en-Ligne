@@ -12,7 +12,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 
-import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -22,6 +21,8 @@ import com.fr.adaming.model.Epicerie;
 import com.fr.adaming.model.Produit;
 import com.fr.adaming.model.ProduitFrais;
 import com.fr.adaming.service.IProduitService;
+
+import javafx.scene.control.TreeTableColumn.CellEditEvent;
 
 @Controller(value = "produitMB")
 @SessionScoped
@@ -58,7 +59,7 @@ public class ProduitManagedBean implements Serializable {
 
 	public void onRowEdit(RowEditEvent event) {
 
-		FacesMessage msg = new FacesMessage("Le produit suivant a Ã©tÃ© Ã©ditÃ©:",
+		FacesMessage msg = new FacesMessage("Le produit suivant a été édité:",
 				((Produit) event.getObject()).getLibelle());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		getProduitService().updateProduit((Produit) event.getObject());
@@ -66,7 +67,7 @@ public class ProduitManagedBean implements Serializable {
 	}
 
 	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Edition annulÃ©",
+		FacesMessage msg = new FacesMessage("Edition annulé",
 				((Produit) event.getObject()).getLibelle());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 //		getProduitService().deleteProduit((Produit) event.getObject());

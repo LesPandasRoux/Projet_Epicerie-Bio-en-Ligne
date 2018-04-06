@@ -110,13 +110,18 @@ public class UserService implements IUserService {
 		this.userDAO = userDAO;
 	}
 	
-	private int i=1;
-	@PostConstruct
-	private void init() {
-		addUser(new User(i++, "Didier", "Pelat","DP001","didier.pelat@gmailcom"));
-		addUser(new User(i++, "Laure", "Bourgois","LB002","laure.bourgois@gmailcom"));
-		addUser(new User(i++, "Sylvain", "Henry","SH003","sylvain.henry@gmail.com"));
-		addUser(new User(i++, "Jim", "Alec","JA004","jim.alec@gmail.com"));
+//	private int i=1;
+//	@PostConstruct
+//	private void init() {
+//		addUser(new User(i++, "Didier", "Pelat","DP001","didier.pelat@gmailcom"));
+//		addUser(new User(i++, "Laure", "Bourgois","LB002","laure.bourgois@gmailcom"));
+//		addUser(new User(i++, "Sylvain", "Henry","SH003","sylvain.henry@gmail.com"));
+//		addUser(new User(i++, "Jim", "Alec","JA004","jim.alec@gmail.com"));
+//	}
+
+	@Override
+	public User findbyEmail(String email) {
+		return getUserDAO().getUserByEmail(email);
 	}
 	
 }

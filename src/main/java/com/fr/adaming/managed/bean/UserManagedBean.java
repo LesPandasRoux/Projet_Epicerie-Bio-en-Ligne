@@ -7,7 +7,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
 import javax.faces.bean.ManagedBean;
@@ -21,6 +20,8 @@ import org.springframework.stereotype.Controller;
 
 import com.fr.adaming.model.User;
 import com.fr.adaming.service.IUserService;
+
+import javafx.scene.control.TableColumn.CellEditEvent;
 
 
 
@@ -42,7 +43,7 @@ public class UserManagedBean implements Serializable {
 	private static final String SUCCESS = "success";
 	private static final String ERROR = "error";
 	private static final String PANIER = "panier";
-	private static final String CONNEXION = "connexion";
+	private static final String CONNEXION = "connexionUser";
 	private static final String CREACOMPTE = "creationCompte";
 
 	@Autowired
@@ -65,7 +66,7 @@ public class UserManagedBean implements Serializable {
 	//
 	public void onRowEdit(RowEditEvent event) {
 
-        FacesMessage msg = new FacesMessage("Le client suivant a été édité:",((User) event.getObject()).getNom());
+        FacesMessage msg = new FacesMessage("Le client suivant a ete edite:",((User) event.getObject()).getNom());
         FacesContext.getCurrentInstance().addMessage(null, msg);
 		getUserService().updateUser((User)event.getObject());
         
@@ -79,14 +80,14 @@ public class UserManagedBean implements Serializable {
 	    }
 	   
 	    
-	    public void onCellEdit(CellEditEvent event) {
-	        Object oldValue = event.getOldValue();
-	        Object newValue = event.getNewValue();
-	        if(newValue != null && !newValue.equals(oldValue)) {
-	            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
-	            FacesContext.getCurrentInstance().addMessage(null, msg);
-	        }
-	    }
+//	    public void onCellEdit(CellEditEvent event) {
+//	        Object oldValue = event.getOldValue();
+//	        Object newValue = event.getNewValue();
+//	        if(newValue != null && !newValue.equals(oldValue)) {
+//	            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+//	            FacesContext.getCurrentInstance().addMessage(null, msg);
+//	        }
+//	    }
      
     //
 	public String addUser() {
