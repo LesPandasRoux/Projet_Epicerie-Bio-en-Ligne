@@ -42,9 +42,9 @@
 					</tr>
 					<tr>
 						<td><p:commandButton id="validerConnection" value="ok"
-								action="#{userMB.verifUser}" ajax="false" /></td>
+								action="#{sessionMB.verifUser}" ajax="false" /></td>
 						<td><p:commandButton id="validerAdmin" value="Admin"
-								action="#{adminMB.verifAdmin}" ajax="false" /></td>		
+								action="#{sessionMB.verifAdmin}" ajax="false" /></td>		
 					</tr>
 					<tr>
 					<td>Vous n'avez pas de compte ? <br/><a href="/pages/creationCompte.xhtml">Creation d'un compte</a></td>
@@ -52,9 +52,12 @@
 				</table>
 			</h:form>
 
+
+
 		</div>
 	</div>
 
 </h:body>
+
 
 </html>
