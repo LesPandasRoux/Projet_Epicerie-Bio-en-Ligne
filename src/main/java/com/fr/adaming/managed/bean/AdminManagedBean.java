@@ -18,15 +18,15 @@ import com.fr.adaming.service.IAdminService;
 @RequestScoped
 public class AdminManagedBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private static final String SUCCESSAD = "successad";
-	private static final String ERRORAD   = "errorad";
+//	private static final String SUCCESSAD = "administrateur";
+//	private static final String ERRORAD   = "errorad";
 	
 	@Autowired
 	IAdminService adminService;
 	
 	List<Administrateur> adminList;
 	
-	private String email;
+	private String login;
 	private String password;
 	
 	/**
@@ -48,12 +48,12 @@ public class AdminManagedBean implements Serializable{
 //		return ERRORAD;
 //	}
 	
-	public String verifAdmin() {
-		if(email.equals("admin@admin") && password.equals("admin")) {
-			return SUCCESSAD;
-		}
-		else return ERRORAD;
-	}
+//	public String verifAdmin() {
+//		if(login.equals("admin") && password.equals("admin")) {
+//			return SUCCESSAD;
+//		}
+//		else return ERRORAD;
+//	}
 	
 	/**
 	 * Reset Fields
@@ -70,8 +70,8 @@ public class AdminManagedBean implements Serializable{
 	 * @return List - Admin List
 	 */
 	public List<Administrateur> getAdminList() {
-//		adminList = new ArrayList<Administrateur>();
-//		adminList.addAll(getAdminService().getAdmins());
+		adminList = new ArrayList<Administrateur>();
+		adminList.addAll(getAdminService().getAdmins());
 		return adminList;
 	}
 	
@@ -94,11 +94,11 @@ public class AdminManagedBean implements Serializable{
 	}
 
 	public String getLogin() {
-		return email;
+		return login;
 	}
 
-	public void setLogin(String email) {
-		this.email = email;
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
 	public String getPassword() {
