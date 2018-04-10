@@ -25,31 +25,30 @@
 			<div id="panier">
 				<c:choose>
 					<c:when test="${empty admin ['sessionMB']}">
-						<a href="/pages/panier.xhtml">Panier</a>
+					<p:link  outcome="/pages/panier" value="Panier"></p:link>
 						<br />
 					</c:when>
 					<c:otherwise>
 						<br />
 					</c:otherwise>
 				</c:choose>
-				
-				<a href="/pages/panier.xhtml">Panier</a>
+
 			</div>
 
 
 			<div id="connection">
 				<c:choose>
-				<c:when test="${empty admin['sessionMB']}">
-					<c:when test="${empty user['sessionMB']}">
-						<a href="/pages/connexion.xhtml">Se Connecter</a>
+					<c:when test="${not empty user['sessionMB']}">
+						<p:link  outcome="/pages/commande" value="Bonjour ${userMB.name}"></p:link>
 						<br />
 					</c:when>
-					<c:otherwise>
-						<a href="/pages/commande.xhtml">Bonjour ${userMB.name}</a>
-						<br />
-					</c:otherwise></c:when>
-					<c:otherwise> 
-					<br/></c:otherwise>
+						<c:when test="${not empty admin['sessionMB']}">
+						admin
+						</c:when>
+						<c:otherwise>
+							<p:link  outcome="/pages/connexion.xhtml" value="Se connecter"></p:link>
+							<br />
+						</c:otherwise>
 				</c:choose>
 			</div>
 		</div>
