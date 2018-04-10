@@ -1,20 +1,23 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	template="./generalnew.xhtml">
-  
-  
-	<ui:define name="title">
-		<h:outputText value="" />
-	</ui:define>
-	<ui:define name="header">
-		<h:outputText value="" />
-	</ui:define>
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+<h:head>
+	<title>Page administrateur</title>
+</h:head>
+<h:body>
+	<div id="header">
 
-	<ui:define name="content">
+		<ui:insert name="header">
+
+			<ui:include src="/pages/header.xhtml" />
+
+		</ui:insert>
+
+	</div>
 	
 	<h:form id="form">
 		<p:panel  header="Liste des clients" toggleable="true" closable="true" toggleSpeed="500">
@@ -30,7 +33,10 @@
 					update=":form:msgs" />
 				<p:ajax event="rowEditCancel" listener="#{userMB.onRowCancel}"
 					update=":form:msgs" />
-
+				<p:ajax event="rowEdit" listener="#{userMB.onRowEdit}"
+					update="form:dataTable" />
+				<p:ajax event="rowEditCancel" listener="#{userMB.onRowCancel}"
+					update="form:dataTable" />
 
 				<p:column headerText="ID" style="width:50px">
 					<p:cellEditor>
@@ -165,7 +171,7 @@
 				<p:column headerText="URL Image">
 					<p:cellEditor>
 						<f:facet name="output">
-							<p:graphicImage id="imageProduit" value="/css/images/#{p.urlimg}"></p:graphicImage>
+							<p:graphicImage style="width:50" value="/css/images/#{p.urlimg}"></p:graphicImage>
 						</f:facet>
 						<f:facet name="input">
 							<p:inputText value="#{p.urlimg}" label="urlimg" />
@@ -227,7 +233,7 @@
 				</tr>
 
 				<tr>
-					<td>                   <p:selectManyCheckbox id="types"
+					<td>                   <p:selectManyCheckbox id="types"
 							value="#{produitMB.types}">
 							<f:selectItem itemLabel="ProduitFrais" itemValue="ProduitFrais" />
 							<f:selectItem itemLabel="Epicerie" itemValue="Epicerie" />
@@ -237,7 +243,7 @@
 
 
 				<tr>
-					<td><p:commandButton id="addProduit" styleClass="regCommandButton"
+					<td><p:commandButton id="addProduit"
 							value="Ajouter le produit" action="#{produitMB.addProduit}"
 							ajax="false" update="form1:dataTable1" /></td>
 
@@ -245,6 +251,6 @@
 			</table>
 		</p:panel>
 	</h:form>
-	</ui:define>
+</h:body>
 
-</ui:composition>
+</html>
