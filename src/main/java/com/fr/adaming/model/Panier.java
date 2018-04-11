@@ -7,7 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Panier {
@@ -16,11 +18,24 @@ public class Panier {
 	@GeneratedValue
 	private int idPanier;
 
-	@OneToMany
-	@JoinTable(name = "PANIER_PRODUCT", joinColumns = {
-			@JoinColumn(name = "PANIER_ID", referencedColumnName = "idPanier") }, inverseJoinColumns = {
-					@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID") })
+	
+	@ManyToMany
+	@JoinTable(name = "PANIER_PRODUCT",
+				joinColumns = {@JoinColumn(name = "PANIER_ID", referencedColumnName = "idPanier") }, 
+				inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID"), @JoinColumn(name="QTE_PROD", referencedColumnName = "qtePanier") })
 	private List<Produit> produits;
+	
+	@OneToOne(mappedBy="panier")
+	private Commande commande;
+	
+
+	public Commande getCommande() {
+		return commande;
+	}
+
+	public void setCommande(Commande commande) {
+		this.commande = commande;
+	}
 
 	public List<Produit> getProduits() {
 		return produits;
@@ -38,4 +53,14 @@ public class Panier {
 		this.idPanier = idPanier;
 	}
 
+	public Panier() {
+		super();
+	}
+
+	public Panier(List<Produit> produits) {
+		super();
+		this.produits = produits;
+	}
+
+	
 }
