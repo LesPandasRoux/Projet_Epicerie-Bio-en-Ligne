@@ -12,6 +12,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 
+import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -21,8 +22,6 @@ import com.fr.adaming.model.Epicerie;
 import com.fr.adaming.model.Produit;
 import com.fr.adaming.model.ProduitFrais;
 import com.fr.adaming.service.IProduitService;
-
-import javafx.scene.control.TreeTableColumn.CellEditEvent;
 
 @Controller(value = "produitMB")
 @SessionScoped
@@ -35,7 +34,7 @@ public class ProduitManagedBean implements Serializable {
 
 	List<Produit> produitList;
 
-	private Long id;
+	private int id;
 
 	private String libelle;
 
@@ -59,29 +58,31 @@ public class ProduitManagedBean implements Serializable {
 
 	public void onRowEdit(RowEditEvent event) {
 
-		FacesMessage msg = new FacesMessage("Le produit suivant a été édité:",
+		FacesMessage msg = new FacesMessage("Le produit suivant a Ã©tÃ© Ã©ditÃ©:",
 				((Produit) event.getObject()).getLibelle());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		getProduitService().updateProduit((Produit) event.getObject());
+		produitService.getProduits();
 
 	}
 
 	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Edition annulé",
+		FacesMessage msg = new FacesMessage("Edition annulÃ©",
 				((Produit) event.getObject()).getLibelle());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+		
 //		getProduitService().deleteProduit((Produit) event.getObject());
 	}
 
-	public void onCellEdit(CellEditEvent event) {
-		Object oldValue = event.getOldValue();
-		Object newValue = event.getNewValue();
-		if (newValue != null && !newValue.equals(oldValue)) {
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed",
-					"Old: " + oldValue + ", New:" + newValue);
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-		}
-	}
+//	public void onCellEdit(CellEditEvent event) {
+//		Object oldValue = event.getOldValue();
+//		Object newValue = event.getNewValue();
+//		if (newValue != null && !newValue.equals(oldValue)) {
+//			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed",
+//					"Old: " + oldValue + ", New:" + newValue);
+//			FacesContext.getCurrentInstance().addMessage(null, msg);
+//		}
+//	}
 	
 	
 	public String[] getTypes() {
@@ -129,11 +130,11 @@ public class ProduitManagedBean implements Serializable {
 		this.produitList = produitList;
 	}
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -191,10 +192,18 @@ public class ProduitManagedBean implements Serializable {
 	}
 
 	public void reset() {
-		this.setId(0l);
+		this.setId(0);
 		this.setLibelle("produit");
 		this.setQteStock(0);
 		this.setPrix(0);
 	}
+
+	@Override
+	public String toString() {
+		return "ProduitManagedBean [id=" + id + ", libelle=" + libelle + ", prix=" + prix + ", qteStock=" + qteStock
+				+ ", poids=" + poids + ", dureeValidite=" + dureeValidite + ", urlimg=" + urlimg + "]";
+	}
+	
+	
 
 }
