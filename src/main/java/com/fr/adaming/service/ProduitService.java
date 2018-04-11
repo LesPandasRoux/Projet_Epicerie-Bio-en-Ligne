@@ -22,24 +22,29 @@ public class ProduitService implements IProduitService {
 	IProduitDAO produitDAO;
 	
 	@Transactional(readOnly = false)
+	@Override
 	public void addProduit(Produit produit) {
 		getProduitDAO().addProduit(produit);
 	}
 
 	@Transactional(readOnly = false)
+	@Override
 	public void deleteProduit(Produit produit) {
 		getProduitDAO().deleteProduit(produit);
 	}
 	
 	@Transactional(readOnly = false)
+	@Override
 	public void updateProduit(Produit produit) {
 		getProduitDAO().updateProduit(produit);
 	}
 	
+	@Override
 	public Produit getProduitById(int id) {
 		return getProduitDAO().getProduitById(id);
 	}
 
+	@Override
 	public List<Produit> getProduits() {	
 		return getProduitDAO().getProduits();
 	}
@@ -52,16 +57,15 @@ public class ProduitService implements IProduitService {
 		this.produitDAO = produitDAO;
 	}
 	
-//	private long i=1l;
 //	@PostConstruct
 //	private void initProduit() {
-//		addProduit(new ProduitFrais(i++, "pain", 1, 50,"pain.jpg", 1));
-//		addProduit(new ProduitFrais(i++, "banane", 0.3f ,100,"banane.jpg", 10));
-//		addProduit(new ProduitFrais(i++, "kiwi", 0.5f ,100,"kiwi.jpg", 10));
-//		addProduit(new ProduitFrais(i++, "pommeVerte", 0.2f ,100,"pommeVerte.jpg", 10));
-//		addProduit(new ProduitFrais(i++, "pommeRouge", 0.2f ,100,"pommeRouge.jpg", 10));
-//		addProduit(new Epicerie(i++, "noix", 1, 50,"noix.jpg",100));
-//		addProduit(new Epicerie(i++, "chocolat", 1.2f, 100,"chocolat.jpg",100));
+//		addProduit(new ProduitFrais( "pain", 1, 50,"pain.jpg",0, 1));
+//		addProduit(new ProduitFrais( "banane", 0.3f ,100,"banane.jpg",0, 10));
+//		addProduit(new ProduitFrais( "kiwi", 0.5f ,100,"kiwi.jpg",0, 10));
+//		addProduit(new ProduitFrais( "pommeVerte", 0.2f ,100,"pommeVerte.jpg",0, 10));
+//		addProduit(new ProduitFrais( "pommeRouge", 0.2f ,100,"pommeRouge.jpg",0, 10));
+//		addProduit(new Epicerie( "noix", 1, 50,"noix.jpg",0,100));
+//		addProduit(new Epicerie( "chocolat", 1.2f, 100,"chocolat.jpg",0,100));
 //	}
 
 
