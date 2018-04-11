@@ -23,16 +23,15 @@
 			</ui:insert>
 		</div>
 		<div id="content">
-			<h:outputLabel for="connexion" value="Veuillez vous connecter !" />
+
 			<h:form>
 				<table>
 					<tr>
 						<td><h:outputLabel for="email" value="Email : " /></td>
-						<td><p:inputText id="email" value="#{sessionMB.email}"  required="true" >
+						<td><p:inputText id="email" value="#{sessionMB.email}"  required="true">
 								<f:validateLength minimum="8" />
-								<f:validator validatorId="MyValidatorBean"/>
 								<p:ajax event="blur" update="emailMsg" />
-							</p:inputText> <p:message id="emailMsg" for="email" display="icon" /></td>	
+							</p:inputText> <p:message id="emailMsg" for="email" display="icon" /></td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="pw" value="Mot de passe : " /></td>
@@ -48,7 +47,7 @@
 								action="#{sessionMB.verifAdmin}" ajax="false" /></td>		
 					</tr>
 					<tr>
-					<td>Vous n'avez pas de compte ? <br/><p:link  outcome="/pages/creationCompte.xhtml" value="Inscription"></p:link></td>
+					<td>Vous n'avez pas de compte ? <br/><p:link outcome="/pages/creationCompte.xhtml" value="Inscription" /></td>
 					</tr>
 				</table>
 			</h:form>

@@ -39,7 +39,6 @@ public class AdminDAO implements IAdminDAO{
 	 * 
 	 * @param  Administrateur admin
 	 */
-	@Override
 	public void addAdmin(Administrateur admin) {
 		getSessionFactory().getCurrentSession().save(admin);
 	}
@@ -49,7 +48,6 @@ public class AdminDAO implements IAdminDAO{
 	 * 
 	 * @param  Administrateur admin
 	 */
-	@Override
 	public void deleteAdmin(Administrateur admin) {
 		getSessionFactory().getCurrentSession().delete(admin);
 	}
@@ -69,7 +67,6 @@ public class AdminDAO implements IAdminDAO{
 	 * @param  int Admin Id
 	 * @return Administrateur 
 	 */
-	@Override
 	public Administrateur getAdminById(int id) {
 		Administrateur admin = (Administrateur) getSessionFactory().getCurrentSession().get(Administrateur.class, id);
 		
@@ -81,7 +78,6 @@ public class AdminDAO implements IAdminDAO{
 	 * 
 	 * @return List - Admin list
 	 */
-	@Override
 	public List<Administrateur> getAdmins() {
 		List list = getSessionFactory().getCurrentSession().createQuery("from Administrateur").list();
 		return list;

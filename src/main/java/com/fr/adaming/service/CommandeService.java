@@ -17,29 +17,24 @@ public class CommandeService implements ICommandeService {
 	ICommandeDAO commandeDAO;
 	
 	@Transactional(readOnly = false)
-	@Override
 	public void addCommande(Commande commande) {
 		getCommandeDAO().addCommande(commande);
 	}
 
 	@Transactional(readOnly = false)
-	@Override
 	public void deleteCommande(Commande commande) {
 		getCommandeDAO().deleteCommande(commande);
 	}
 	
 	@Transactional(readOnly = false)
-	@Override
 	public void updateCommande(Commande commande) {
 		getCommandeDAO().updateCommande(commande);
 	}
 	
-	@Override
 	public Commande getCommandeById(int id) {
 		return getCommandeDAO().getCommandeById(id);
 	}
 
-	@Override
 	public List<Commande> getCommandes() {	
 		return getCommandeDAO().getCommandes();
 	}

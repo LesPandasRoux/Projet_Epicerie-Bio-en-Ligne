@@ -17,29 +17,24 @@ public class AdminService implements IAdminService {
 	IAdminDAO adminDAO;
 	
 	@Transactional(readOnly = false)
-	@Override
 	public void addAdmin(Administrateur admin) {
 		getAdminDAO().addAdmin(admin);
 	}
 
 	@Transactional(readOnly = false)
-	@Override
 	public void deleteAdmin(Administrateur admin) {
 		getAdminDAO().deleteAdmin(admin);
 	}
 	
 	@Transactional(readOnly = false)
-	@Override
 	public void updateAdmin(Administrateur admin) {
 		getAdminDAO().updateAdmin(admin);
 	}
 	
-	@Override
 	public Administrateur getAdminById(int id) {
 		return getAdminDAO().getAdminById(id);
 	}
 
-	@Override
 	public List<Administrateur> getAdmins() {	
 		return getAdminDAO().getAdmins();
 	}

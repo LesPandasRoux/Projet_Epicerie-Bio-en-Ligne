@@ -23,31 +23,26 @@ public class ProduitDAO implements IProduitDAO{
         this.sessionFactory = sessionFactory;
     }
 
-	@Override
 	public void addProduit(Produit produit) {
 		getSessionFactory().getCurrentSession().save(produit);
 		
 	}
 
-	@Override
 	public void updateProduit(Produit produit) {
 		getSessionFactory().getCurrentSession().update(produit);
 		
 	}
 
-	@Override
 	public void deleteProduit(Produit produit) {
 		getSessionFactory().getCurrentSession().delete(produit);
 		
 	}
 
-	@Override
 	public Produit getProduitById(int id) {
 		Produit produit = (Produit) getSessionFactory().getCurrentSession().get(Produit.class, id);
         return produit;
 	}
 
-	@Override
 	public List<Produit> getProduits() {
 		List list = getSessionFactory().getCurrentSession().createQuery("from Produit").list();
 		return list;
