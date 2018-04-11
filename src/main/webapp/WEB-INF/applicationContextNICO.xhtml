@@ -1,0 +1,80 @@
+<!-- Se génére automatiquement dans springBoot, mais dans les applis spring classiques on le fait nous-même -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+				http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+				http://www.springframework.org/schema/tx 
+		        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		        http://www.springframework.org/schema/context 
+		        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+		        
+<import  resource="/spring-security.xml"/>
+
+<!-- 	Utilisée pour scanner les différentes annotations du projet, et gérer les dépendances entre les couches différentes -->
+  <context:component-scan base-package="com.fr.adaming"
+		annotation-config="true" /> 
+
+<!-- 	Cet attribut est utilisé pour activer les annotations -->
+	<context:annotation-config /> 
+<!-- Le framework spring est implémenté dans cette application web : context:spring  -->
+	<context:spring-configured />
+
+<!-- 	<bean id="UserService" class="com.fr.adaming.service.UserService"> ANCIEN, N'EST PLUS UTILISé et nécessite l'alimentation d'un fichier beans.xml-->
+<!-- 		<property name="userDAO" ref="UserDAO"></property> -->
+<!-- 	</bean> -->
+
+<!-- 	<bean id="UserDAO" class="com.fr.adaming.dao.UserDAO"> -->
+<!-- 		<property name="sessionFactory" ref="SessionFactory"></property> 
+la propriété serait alors alimentée via la sessionfactory (non pas comme dans les exemples fournis en TD --> 
+<!-- 	</bean> -->
+
+<!-- Connexion a la base de données -->
+	<!-- Data Source Declaration -->
+	<bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/test" />
+<!-- 		localhost:3306/db_maven?createDatabaseIfNotExist=true -->
+		<property name="user" value="root" />
+		<property name="password" value="root" />
+		<property name="maxPoolSize" value="10" />
+		<property name="maxStatements" value="0" />
+		<property name="minPoolSize" value="5" />
+	</bean>
+<!-- Création d'une session : Et liste des classes "annotated" du projet // c'est la déclaration de l'IoC -->
+	<!-- Session Factory Declaration -->
+	<bean id="SessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="DataSource" />
+		<property name="annotatedClasses">
+			<list>
+							<value>com.fr.adaming.model.Role</value>
+			
+				<value>com.fr.adaming.model.User</value>
+				<value>com.fr.adaming.model.Produit</value>
+				<value>com.fr.adaming.model.Commande</value>
+				<value>com.fr.adaming.model.Epicerie</value>
+				<value>com.fr.adaming.model.ProduitFrais</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- Enable the configuration of transactional behavior based on annotations pour utiliser la notation @Transactional -->
+<!-- 	C'est une classe liée a hibernate, qui ne fait pas partie du context:spring -->
+	<tx:annotation-driven transaction-manager="txManager" />
+
+	<!-- Transaction Manager is defined -->
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="SessionFactory" />
+	</bean>
+
+</beans>
