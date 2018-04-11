@@ -50,31 +50,6 @@ public class PanierManagedBean implements Serializable {
 	private List<Produit> produitsDuPanier = new ArrayList<>();
 	private String type;
 
-
-	// public void validerPanierById() {
-	// try {
-	// Panier panier = new Panier();
-	// panier.setIdPanier(getId());
-	// panier.setProduits(getProduits());
-	// panierService.addPanier(panier);
-	// // if user connecte then payement
-	// // else se connecter/s'inscrire
-	// } catch (DataAccessException e) {
-	// e.printStackTrace();
-	// }
-	// }
-	//
-	// public void addProductToCartByPID() {
-	// FacesContext fc = FacesContext.getCurrentInstance();
-	// Map<String,String> params =
-	// fc.getExternalContext().getRequestParameterMap();
-	// pid = Integer.parseInt(params.get("username"));
-	// Produit prod = getProductByProductID(pid);
-	// produitsDuPanier.add(prod);
-	//
-	// }
-	//
-	// Manon
 	public void printID(ActionEvent event) {
 		pid = (Integer) event.getComponent().getAttributes().get("pid");
 		type = (String) event.getComponent().getAttributes().get("type");
