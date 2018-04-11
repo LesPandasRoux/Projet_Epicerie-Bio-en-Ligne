@@ -1,6 +1,5 @@
 package com.fr.adaming.model;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -24,7 +23,7 @@ public class Produit {
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID")
-    private Long idProduit;
+    private int idProduit;
 
 	private String libelle;
 	
@@ -34,21 +33,34 @@ public class Produit {
 	
 	private String urlimg;
 	
+	protected String type;
 	
-	@ManyToMany(mappedBy="produits")
-	private List<Commande> commandes;
+	private int qtePanier=0;
 	
-	public List<Commande> getCommandes() {
-		return commandes;
+	public int getQtePanier() {
+		return qtePanier;
 	}
 
-	public void setCommandes(List<Commande> commandes) {
-		this.commandes = commandes;
+	public void setQtePanier(int qtePanier) {
+		this.qtePanier = qtePanier;
 	}
+	
+//	@ManyToMany(mappedBy="produits")
+//	protected List<Panier> paniers;
+
+	
 
 	public String getLibelle() {
 		return libelle;
 	}
+
+//	public List<Panier> getPaniers() {
+//		return paniers;
+//	}
+//
+//	public void setPaniers(List<Panier> paniers) {
+//		this.paniers = paniers;
+//	}
 
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
@@ -70,11 +82,11 @@ public class Produit {
 		this.qteStock = qteStock;
 	}
 
-	public Long getIdProduit() {
+	public int getIdProduit() {
 		return idProduit;
 	}
 
-	public void setIdProduit(Long idProduit) {
+	public void setIdProduit(int idProduit) {
 		this.idProduit = idProduit;
 	}
 	
@@ -88,7 +100,7 @@ public class Produit {
 		this.urlimg = urlimg;
 	}
 
-	public Produit(Long idProduit, String libelle, float prix, int qteStock) {
+	public Produit(int idProduit, String libelle, float prix, int qteStock) {
 		super();
 		this.idProduit = idProduit;
 		this.libelle = libelle;
@@ -96,13 +108,27 @@ public class Produit {
 		this.qteStock = qteStock;
 	}
 
-	public Produit(Long idProduit, String libelle, float prix, int qteStock, String urlimg) {
+	public Produit(int idProduit, String libelle, float prix, int qteStock, String urlimg) {
 		super();
 		this.idProduit = idProduit;
 		this.libelle = libelle;
 		this.prix = prix;
 		this.qteStock = qteStock;
 		this.urlimg = urlimg;
+	}
+	
+	
+
+	public Produit(int idProduit, String libelle, float prix, int qteStock, String urlimg, String type, int qtePanier,
+			List<Commande> commandes) {
+		super();
+		this.idProduit = idProduit;
+		this.libelle = libelle;
+		this.prix = prix;
+		this.qteStock = qteStock;
+		this.urlimg = urlimg;
+		this.type = type;
+		this.qtePanier = qtePanier;
 	}
 
 	public Produit() {
@@ -116,6 +142,30 @@ public class Produit {
 		this.prix = prix;
 		this.qteStock = qteStock;
 		this.urlimg = urlimg;
+	}
+
+	@Override
+	public String toString() {
+		return "Produit [idProduit=" + idProduit + ", libelle=" + libelle + ", prix=" + prix + ", qteStock=" + qteStock
+				+ ", urlimg=" + urlimg + ", type=" + type + ", qtePanier=" + qtePanier
+				+ "]";
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Produit(String libelle, float prix, int qteStock, String urlimg, int qtePanier) {
+		super();
+		this.libelle = libelle;
+		this.prix = prix;
+		this.qteStock = qteStock;
+		this.urlimg = urlimg;
+		this.qtePanier = qtePanier;
 	}
 	
 	
