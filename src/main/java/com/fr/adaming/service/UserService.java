@@ -42,7 +42,6 @@ public class UserService implements IUserService {
 	
 	
 	@Transactional(readOnly = false)
-	@Override
 	public void addUser(User user) {
 		getUserDAO().addUser(user);
 	}
@@ -54,7 +53,6 @@ public class UserService implements IUserService {
 	 *            user
 	 */
 	@Transactional(readOnly = false)
-	@Override
 	public void deleteUser(User user) {
 		getUserDAO().deleteUser(user);
 	}
@@ -66,7 +64,6 @@ public class UserService implements IUserService {
 	 *            user
 	 */
 	@Transactional(readOnly = false)
-	@Override
 	public void updateUser(User user) {
 		getUserDAO().updateUser(user);
 	}
@@ -77,7 +74,6 @@ public class UserService implements IUserService {
 	 * @param int
 	 *            User Id
 	 */
-	@Override
 	public User getUserById(int id) {
 		return getUserDAO().getUserById(id);
 	}
@@ -86,7 +82,6 @@ public class UserService implements IUserService {
 	 * Get User List
 	 * 
 	 */
-	@Override
 	public List<User> getUsers() {
 		return getUserDAO().getUsers();
 	}
@@ -119,7 +114,6 @@ public class UserService implements IUserService {
 //		addUser(new User(i++, "Jim", "Alec","JA004","jim.alec@gmail.com"));
 //	}
 
-	@Override
 	public User findbyEmail(String email) {
 		return getUserDAO().getUserByEmail(email);
 	}

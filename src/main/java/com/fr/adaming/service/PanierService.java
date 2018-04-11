@@ -17,29 +17,24 @@ public class PanierService implements IPanierService {
 	IPanierDAO panierDAO;
 	
 	@Transactional(readOnly = false)
-	@Override
 	public void addPanier(Panier panier) {
 		getPanierDAO().addPanier(panier);
 	}
 
 	@Transactional(readOnly = false)
-	@Override
 	public void deletePanier(Panier panier) {
 		getPanierDAO().deletePanier(panier);
 	}
 	
 	@Transactional(readOnly = false)
-	@Override
 	public void updatePanier(Panier panier) {
 		getPanierDAO().updatePanier(panier);
 	}
 	
-	@Override
 	public Panier getPanierById(int id) {
 		return getPanierDAO().getPanierById(id);
 	}
 
-	@Override
 	public List<Panier> getPaniers() {	
 		return getPanierDAO().getPaniers();
 	}

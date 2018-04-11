@@ -22,29 +22,24 @@ public class ProduitService implements IProduitService {
 	IProduitDAO produitDAO;
 	
 	@Transactional(readOnly = false)
-	@Override
 	public void addProduit(Produit produit) {
 		getProduitDAO().addProduit(produit);
 	}
 
 	@Transactional(readOnly = false)
-	@Override
 	public void deleteProduit(Produit produit) {
 		getProduitDAO().deleteProduit(produit);
 	}
 	
 	@Transactional(readOnly = false)
-	@Override
 	public void updateProduit(Produit produit) {
 		getProduitDAO().updateProduit(produit);
 	}
 	
-	@Override
 	public Produit getProduitById(int id) {
 		return getProduitDAO().getProduitById(id);
 	}
 
-	@Override
 	public List<Produit> getProduits() {	
 		return getProduitDAO().getProduits();
 	}

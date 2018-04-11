@@ -18,8 +18,8 @@ import com.fr.adaming.service.IAdminService;
 @RequestScoped
 public class AdminManagedBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-//	private static final String SUCCESSAD = "administrateur";
-//	private static final String ERRORAD   = "errorad";
+	private static final String SUCCESSAD = "administrateur";
+	private static final String ERRORAD   = "errorad";
 	
 	@Autowired
 	IAdminService adminService;
@@ -34,26 +34,26 @@ public class AdminManagedBean implements Serializable{
 	 * 
 	 * @return String - Response Message
 	 */
-//	public String addAdmin() {
-//		try {
-//			Administrateur admin = new Administrateur();
-//			admin.setLogin(getLogin());
-//			admin.setPw(getPassword());
-//			adminService.addAdmin(admin);
-//			return SUCCESSAD;
-//		} catch (DataAccessException e) {
-//			e.printStackTrace();
-//		} 	
-//		
-//		return ERRORAD;
-//	}
+	public String addAdmin() {
+		try {
+			Administrateur admin = new Administrateur();
+			admin.setLogin(getLogin());
+			admin.setPw(getPassword());
+			adminService.addAdmin(admin);
+			return SUCCESSAD;
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		} 	
+		
+		return ERRORAD;
+	}
 	
-//	public String verifAdmin() {
-//		if(login.equals("admin") && password.equals("admin")) {
-//			return SUCCESSAD;
-//		}
-//		else return ERRORAD;
-//	}
+	public String verifAdmin() {
+		if(login.equals("admin@admin") && password.equals("admin")) {
+			return SUCCESSAD;
+		}
+		else return ERRORAD;
+	}
 	
 	/**
 	 * Reset Fields
