@@ -17,25 +17,33 @@ public class ProduitFrais extends Produit {
 		this.dureeValidite = dureeValidite;
 	}
 
-	public ProduitFrais(Long idProduit, String libelle, float prix, int qteStock, int dureeValidite) {
+	public ProduitFrais(int idProduit, String libelle, float prix, int qteStock, int dureeValidite) {
 		super(idProduit, libelle, prix, qteStock);
 		this.dureeValidite = dureeValidite;
+		this.type = "ProduitFrais";
 	}
 
-	public ProduitFrais(Long idProduit, String libelle, float prix, int qteStock, String urlimg, int dureeValidite) {
+	public ProduitFrais(int idProduit, String libelle, float prix, int qteStock, String urlimg, int dureeValidite) {
 		super(idProduit, libelle, prix, qteStock, urlimg);
 		this.dureeValidite = dureeValidite;
+		this.type = "ProduitFrais";
 	}
 
 	public ProduitFrais() {
 		super();
+		this.type = "ProduitFrais";
 	}
 
 	public ProduitFrais( String libelle, float prix, int qteStock,String urlimg, int dureeValidite) {
 		super(libelle, prix, qteStock, urlimg);
 		this.dureeValidite = dureeValidite;
+		this.type = "ProduitFrais";
 	}
-	
+
+	public ProduitFrais(String libelle, float prix, int qteStock, String urlimg, int qtePanier, int dureeValidite) {
+		super(libelle, prix, qteStock, urlimg, qtePanier);
+		this.dureeValidite = dureeValidite;
+	}
 	
 	
 	
