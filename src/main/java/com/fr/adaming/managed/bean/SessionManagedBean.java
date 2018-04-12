@@ -1,14 +1,11 @@
 package com.fr.adaming.managed.bean;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.method.annotation.SessionAttributesHandler;
 
 import com.fr.adaming.model.Administrateur;
 import com.fr.adaming.model.User;
