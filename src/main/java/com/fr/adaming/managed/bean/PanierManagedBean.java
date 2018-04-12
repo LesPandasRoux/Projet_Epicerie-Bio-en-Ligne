@@ -32,6 +32,8 @@ import com.fr.adaming.service.IProduitService;
  *
  */
 
+//IL MANQUE LE USER
+
 @Controller(value = "panierMB")
 @SessionScoped
 public class PanierManagedBean implements Serializable {
@@ -44,12 +46,38 @@ public class PanierManagedBean implements Serializable {
 	@Autowired
 	IProduitService produitService;
 
-	List<Panier> panierList;
-
+	List<Panier> panierList = new ArrayList<>();
+	
+	private int idPanier;
 	private int pid;
 	private List<Produit> produitsDuPanier = new ArrayList<>();
 	private String type;
 
+
+	// public void validerPanierById() {
+	// try {
+	// Panier panier = new Panier();
+	// panier.setIdPanier(getId());
+	// panier.setProduits(getProduits());
+	// panierService.addPanier(panier);
+	// // if user connecte then payement
+	// // else se connecter/s'inscrire
+	// } catch (DataAccessException e) {
+	// e.printStackTrace();
+	// }
+	// }
+	//
+	// public void addProductToCartByPID() {
+	// FacesContext fc = FacesContext.getCurrentInstance();
+	// Map<String,String> params =
+	// fc.getExternalContext().getRequestParameterMap();
+	// pid = Integer.parseInt(params.get("username"));
+	// Produit prod = getProductByProductID(pid);
+	// produitsDuPanier.add(prod);
+	//
+	// }
+	//
+	// Manon
 	public void printID(ActionEvent event) {
 		pid = (Integer) event.getComponent().getAttributes().get("pid");
 		type = (String) event.getComponent().getAttributes().get("type");
@@ -98,7 +126,7 @@ public class PanierManagedBean implements Serializable {
 				((Produit) event.getObject()).getLibelle());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		int idProd = ((Produit) event.getObject()).getIdProduit();
-		getProduitsDuPanier().get(idProd).setQtePanier(((Produit) event.getObject()).getQtePanier());
+		getProduitsDuPanier().get(idProd-1).setQtePanier(((Produit) event.getObject()).getQtePanier());
 
 	}
 
@@ -106,7 +134,6 @@ public class PanierManagedBean implements Serializable {
 		FacesMessage msg = new FacesMessage("Edition annulé",
 				((Produit) event.getObject()).getLibelle());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-		getProduitsDuPanier().remove((Produit) event.getObject());
 	}
 	
 	public int showQuantite() {
@@ -119,10 +146,26 @@ public class PanierManagedBean implements Serializable {
 		return 0;
 	}
 	
+	public Panier affichePanier() {
+		System.out.println("/n" +panierList);
+		return panierService.getPanierById(1);
+	}
+	
+	
 	public String validerPanier(){
 		Panier panier = new Panier(produitsDuPanier);
 		panierService.addPanier(panier);
+		panierList.add(panier);
+		idPanier=panierList.size();
+		System.out.println("/n" +panierList);
 		return "valider";
+	}
+	
+	public Panier panierEnCours() {
+		idPanier = getPanierList().size()-1;
+		System.out.println("\n" + getPanierList().get(idPanier));
+		return getPanierList().get(idPanier);
+
 	}
 	
 	public void afficheLibelle() {
@@ -170,5 +213,15 @@ public class PanierManagedBean implements Serializable {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	public int getIdPanier() {
+		return idPanier;
+	}
+
+	public void setIdPanier(int idPanier) {
+		this.idPanier = idPanier;
+	}
+	
+	
 
 }
