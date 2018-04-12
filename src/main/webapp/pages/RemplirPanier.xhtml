@@ -14,73 +14,53 @@
 	</ui:define>
 
 	<ui:define name="content">
+<h:outputLabel value=" " style="margin-bottom: 100px;"/>
 
-	
-	<table>
-	<tr>
 	<h:form>
-	<p:commandButton id="idPanier" value="Voir panier"
+	<p:commandButton id="idPanier" value="VOIR LE PANIER"
 					action="#{panierMB.validerPanier}"
-					 ajax="false" />
-					 </h:form>
-	</tr>
-		<tr>
-		<td>
+					 ajax="false"  />
+	</h:form>
+
 	<h:form> 
-
-    <p:dataScroller value="#{dataScrollerView.produits}" var="p"
-				chunkSize="10">
-        <f:facet name="header">
-            Produits disponibles
-        </f:facet>
- 
-        <h:panelGrid columns="3" columnClasses="logo,detail">
-
-            <p:graphicImage value="/webapp/css/images/#{p.urlimg}" width="100px"> 
-				<f:param name="url" value="#{p.urlimg}"></f:param>
-			</p:graphicImage>
-
-            <p:outputPanel>
-                <h:panelGrid columns="4" cellpadding="2">
-                    <h:outputText value="Reference:" />
-                    <h:outputText value="#{p.idProduit}" style="font-weight: bold" />
-
-                    <h:outputText value="Libelle:" />
-                    <h:outputText value="#{p.libelle}" style="font-weight: bold" />
- 					
-                    <h:outputText value="Prix:" />
-                    <h:outputText value="#{p.prix}€" style="font-weight: bold" />
- 					
-					</h:panelGrid>
-					<h:panelGrid columns="2">
+	<p:dataGrid var="prod" value="#{produitMB.produitList}" columns="3" layout="grid"
+        rows="12" paginator="true" id="produits"
+        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+        rowsPerPageTemplate="6,12,16">
+        
+		 <p:panel header="#{prod.libelle}" style="text-align:center">
+            <h:panelGrid columns="1" style="width:100%">
+                <p:graphicImage value="/css/images/#{prod.urlimg}" width="100px"/> 
+ 
+                <h:outputText value="Prix: #{prod.prix}€" />
+                <h:outputText value="Prix: #{prod.prix}€" />
+                <h:panelGrid columns="3" style="margin:auto">
 					
-				
 				<p:commandButton id="addtocart" action="#{panierMB.addToCart}"
 					icon="ui-icon-circle-plus" actionListener="#{panierMB.printID}" update="quantite">
-					<f:attribute name="pid" value="#{p.idProduit}"></f:attribute>
-					<f:attribute name="type" value="#{p.type}"></f:attribute>
+					<f:attribute name="pid" value="#{prod.idProduit}"></f:attribute>
+					<f:attribute name="type" value="#{prod.type}"></f:attribute>
 				</p:commandButton>
 				
-				<h:outputText id="quantite" value="#{panierMB.showQuantite()}" actionListener="#{panierMB.printID}">
-					<f:attribute name="pid" value="#{p.idProduit}"></f:attribute>
-					<f:attribute name="type" value="#{p.type}"></f:attribute>
+				<h:outputText id="quantite" value="#{panierMB.showQuantite()}" actionListener="#{panierMB.printID}" style="margin:auto">
+					<f:attribute name="pid" value="#{prod.idProduit}"></f:attribute>
+					<f:attribute name="type" value="#{prod.type}"></f:attribute>
 				</h:outputText>
 
 				<p:commandButton id="removefromcart" action="#{panierMB.removeFromCart}"
 					icon="ui-icon-circle-minus" actionListener="#{panierMB.printID}" update="quantite">
-					<f:attribute name="pid" value="#{p.idProduit}"></f:attribute>
-					<f:attribute name="type" value="#{p.type}"></f:attribute>
+					<f:attribute name="pid" value="#{prod.idProduit}"></f:attribute>
+					<f:attribute name="type" value="#{prod.type}"></f:attribute>
 				</p:commandButton>
 
                 </h:panelGrid>
-            </p:outputPanel>
+ 
+            </h:panelGrid>
+        </p:panel>
+	</p:dataGrid>
 
-        </h:panelGrid>
-    </p:dataScroller>
 		</h:form>
-</td>
-</tr>
-</table>
+
 
 	</ui:define>
 
