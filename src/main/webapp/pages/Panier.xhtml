@@ -16,14 +16,14 @@
 	<ui:define name="content">
 
 		<h:form id="form1">
-		
-			<p:panel header="Panier" toggleable="true" closable="true"
+		ref:#{panierMB.idPanier}
+			<p:panel header="Panier " toggleable="true" closable="true"
 				toggleSpeed="500">
 				<p:growl id="msgs1" showDetail="true" />
 
 				<p:dataTable id="dataTable1" var="prod"
 					value="#{panierMB.produitsDuPanier}" editable="true" editMode="row"
-					rowKey="pan.idProduit" paginator="true" rows="5"> 	
+					rowKey="pan.idProduit" paginator="true" rows="5">
 					<f:facet name="header">  
                         Liste des produits 
                     </f:facet>
@@ -35,31 +35,22 @@
 
 					<p:column headerText="Ref" style="width:50px">
 
-						<f:facet name="output">
-							<h:outputText value="#{prod.idProduit}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{prod.idProduit}" label="Ref" />
-						</f:facet>
+						<ui:repeat var="idProduit" value="#{prod.idProduit}">
+							<p:row>
+						#{idProduit}
+						</p:row>
+						</ui:repeat>
 
 					</p:column>
-
-<!-- 					<p:column headerText="Libelle"> -->
-<!-- 						<p:dataList value="#{panierMB.produitsDuPanier}" var="prod" itemType="none"> -->
-<!--        					 #{prod.idProduit} -->
-<!--    						 </p:dataList> -->
-<!-- 					</p:column> -->
 
 					<p:column headerText="Libelle">
-
-						<f:facet name="output">
-							<h:outputText value="#{prod.libelle}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{prod.libelle}" label="Libelle" />
-						</f:facet>
-
+						<ui:repeat var="Libelle" value="#{prod.libelle}">
+							<p:row>
+						#{Libelle}
+						</p:row>
+						</ui:repeat>
 					</p:column>
+
 
 					<p:column headerText="Quantité">
 						<p:cellEditor>
@@ -74,23 +65,21 @@
 
 					<p:column headerText="Prix">
 
-						<f:facet name="output">
-							<h:outputText value="#{prod.prix}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{prod.prix}" label="Prix" />
-						</f:facet>
+						<ui:repeat var="Prix" value="#{prod.prix}">
+						<p:row>
+						#{Prix}€
+						</p:row>
+					</ui:repeat>
 
 					</p:column>
 
 					<p:column headerText="Image">
-
-						<f:facet name="output">
-							<p:graphicImage id="imageProduit" value="/css/images/#{prod.urlimg}"></p:graphicImage>
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{prod.urlimg}" label="urlimg" />
-						</f:facet>
+					<ui:repeat var="urlimg" value="#{prod.urlimg}">
+						<p:row>
+						<p:graphicImage id="imageProduit"
+								value="/css/images/#{urlimg}" style="width:100px"></p:graphicImage>
+						</p:row>
+					</ui:repeat>
 
 					</p:column>
 
@@ -100,6 +89,12 @@
 
 				</p:dataTable>
 			</p:panel>
+			
+			<p:commandButton id="Commande" value="VALIDER COMMANDE" action="#{commandeMB.validerCommande}" actionListener="#{commandeMB.recupID}"
+					 ajax="false"  >
+					 <f:attribute name="idPanier" value="#{panierMB.idPanier}"></f:attribute>
+					 </p:commandButton>
+			
 		</h:form>
 	</ui:define>
 
