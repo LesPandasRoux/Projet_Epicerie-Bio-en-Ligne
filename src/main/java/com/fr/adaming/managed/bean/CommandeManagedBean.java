@@ -1,11 +1,15 @@
 package com.fr.adaming.managed.bean;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -15,22 +19,36 @@ import com.fr.adaming.dao.ICommandeDAO;
 import com.fr.adaming.model.Produit;
 import com.fr.adaming.model.User;
 import com.fr.adaming.service.ICommandeService;
+import com.fr.adaming.service.IPanierService;
+import com.fr.adaming.service.IUserService;
 import com.fr.adaming.model.Commande;
+import com.fr.adaming.model.Panier;
+
+//IL MANQUE LE USER!!!
 
 @Controller(value="commandeMB")
-@RequestScoped
+@SessionScoped
 public class CommandeManagedBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 @Autowired
 ICommandeService commandeService;
 
+@Autowired
+IPanierService panierService;
+
+@Autowired
+IUserService userService;
+
 	private Long refCMD;
 	private User owner;
 
-	private Date dateCMD;
+	private String dateCMD;
 	private String etatCommande;
 	
-	List<Commande> commandeList;
+	List<Commande> commandeList= new ArrayList<>();
+	
+	
+	private int idPanier;
 	
 	public void addCommande() {
 		try {
@@ -52,6 +70,23 @@ ICommandeService commandeService;
 		this.setOwner(null);
 		this.setDateCMD(null);
 		this.setEtatCommande(null);
+	}
+	
+	public void recupID(ActionEvent event) {
+		idPanier = (Integer) event.getComponent().getAttributes().get("idPanier");
+		System.out.println(idPanier);
+	}
+	
+	public String validerCommande() {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+		LocalDate localDate = LocalDate.now();
+		Panier panier =  panierService.getPanierById(idPanier);
+		Commande commande = new Commande(userService.getUserById(1),dtf.format(localDate) , "en cours de préparation",panier);
+		commandeService.addCommande(commande);
+
+		panierService.getPanierById(idPanier).setCommande(commande);
+		commandeList.add(commande);
+		return "/pages/commande";
 	}
 	
 
@@ -89,10 +124,10 @@ ICommandeService commandeService;
 	public void setOwner(User owner) {
 		this.owner = owner;
 	}
-	public Date getDateCMD() {
+	public String getDateCMD() {
 		return dateCMD;
 	}
-	public void setDateCMD(Date dateCMD) {
+	public void setDateCMD(String dateCMD) {
 		this.dateCMD = dateCMD;
 	}
 	public String getEtatCommande() {
