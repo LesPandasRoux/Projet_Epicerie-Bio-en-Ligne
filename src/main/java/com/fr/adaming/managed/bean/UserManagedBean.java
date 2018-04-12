@@ -1,200 +1,122 @@
-package com.fr.adaming.managed.bean;
+package com.fr.adaming.dao;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import org.primefaces.event.RowEditEvent;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-
-
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.fr.adaming.model.Role;
 import com.fr.adaming.model.User;
-import com.fr.adaming.service.IUserService;
 
-import javafx.scene.control.TableColumn.CellEditEvent;
-
-
-
-/**
- * 
- * User Managed Bean
- * 
- * @author onlinetechvision.com
- * @since 25 Mar 2012
- * @version 1.0.0
- *
- */
-
-@Controller(value = "userMB")
-@RequestScoped
-public class UserManagedBean implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-	private static final String SUCCESS = "success";
-	private static final String ERROR = "error";
-	private static final String PANIER = "panier";
-	private static final String CONNEXION = "connexionUser";
-	private static final String CREACOMPTE = "creationCompte";
-
+@Repository
+@Transactional
+public class UserDAO implements IUserDAO {
 	@Autowired
-	IUserService userService;
+	private SessionFactory sessionFactory;
 
-	List<User> userList;
+	/**
+	 * Get Hibernate Session Factory
+	 * 
+	 * @return SessionFactory - Hibernate Session Factory
+	 */
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
 
-	private int id;
-	private String name;
-	private String surname;
-	private String pw;
-	private String email;
-	
-	 @PostConstruct
-	    public void init() {
-	      userList=userService.getUsers();
-	    }
-	 
-	
-	//
-	public void onRowEdit(RowEditEvent event) {
+	/**
+	 * Set Hibernate Session Factory
+	 * 
+	 * @param SessionFactory
+	 *            - Hibernate Session Factory
+	 */
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
-        FacesMessage msg = new FacesMessage("Le client suivant a ete edite:",((User) event.getObject()).getNom());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-		getUserService().updateUser((User)event.getObject());
-        
-    }
-	
-	   public void onRowCancel(RowEditEvent event) {
-	        FacesMessage msg = new FacesMessage("Edition annule",((User) event.getObject()).getNom());
-	        FacesContext.getCurrentInstance().addMessage(null, msg);
-//	        userList.remove((User) event.getObject());
-//	        getUserService().deleteUser((User) event.getObject());
-	    }
-	   
-	    
-//	    public void onCellEdit(CellEditEvent event) {
-//	        Object oldValue = event.getOldValue();
-//	        Object newValue = event.getNewValue();
-//	        if(newValue != null && !newValue.equals(oldValue)) {
-//	            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
-//	            FacesContext.getCurrentInstance().addMessage(null, msg);
-//	        }
-//	    }
-     
-    //
-	public String addUser() {
-		try {
-			User user = new User();
-			user.setIdUser(getId());
-			user.setNom(getName());
-			user.setPrenom(getSurname());
-			user.setEmail(getEmail());
-			user.setPw(getPw());
-			userService.addUser(user);
-			return SUCCESS;
-		} catch (DataAccessException e) {
-			e.printStackTrace();
+	/**
+	 * Add User
+	 * 
+	 * @param User
+	 *            user
+	 */
+	public void addUser(User user) {
+		getSessionFactory().getCurrentSession().save(user);
+	}
+
+	/**
+	 * Delete User
+	 * 
+	 * @param User
+	 *            user
+	 */
+	public void deleteUser(User user) {
+		getSessionFactory().getCurrentSession().delete(user);
+	}
+
+	/**
+	 * Update User
+	 * 
+	 * @param User
+	 *            user
+	 */
+	public void updateUser(User user) {
+		getSessionFactory().getCurrentSession().update(user);
+	}
+
+	/**
+	 * Get User
+	 * 
+	 * @param int
+	 *            User Id
+	 * @return User
+	 */
+	public User getUserById(int id) {
+		User User = (User) getSessionFactory().getCurrentSession().get(User.class, id);
+
+		return User;
+	}
+
+	public User getUserByEmail(String email) {
+		// Query query = sessionFactory.getCurrentSession().createQuery("from User where
+		// email=:email");
+		// query.setParameter("email", email);
+		// User user = (User) query.uniqueResult();
+		// return user;
+		Object crit= getSessionFactory().getCurrentSession().createCriteria(User.class).add(Restrictions.like("email",email)).uniqueResult();
+		if (crit!= null) {
+		return (User) crit;
+		    } else {
+		        return null;
+		    }
+	}
+
+	/**
+	 * Get User List
+	 * 
+	 * @return List - User list
+	 */
+	public List<User> getUsers() {
+		 List list = getSessionFactory().getCurrentSession().createQuery("from User").list();
+		 return list;
+	}
+
+	@Override
+	public List<Role> getUserRoles(String email) {
+		// List list = getSessionFactory().getCurrentSession().createQuery("from Role
+		// where email = ?").list();
+		// return list;
+		Object crit = getSessionFactory().getCurrentSession().createCriteria(User.class)
+				.add(Restrictions.like("email", email)).uniqueResult();
+		User crit1 = (User) crit;
+		if (crit1 != null) {
+			return crit1.getRoles();
+		} else {
+			return null;
 		}
-
-		return ERROR;
-	}
-
-
-	public void reset() {
-		this.setId(0);
-		this.setName("");
-		this.setSurname("");
-		this.setEmail("");
-		this.setPw("");
-	}
-
-	public String verifUser() {
-		User user = getUserService().findbyEmail(email);
-		if (user !=null) {
-			if (user.getPw().equals(pw)) {
-				return PANIER;
-			}
-		}
-		return CONNEXION;
-		
-	}
-	
-	public String editUser(User user) {
-		user.setEditable(true);
-		return null;
-	}
-
-	public String saveAction() { 
-		//get all existing value but set "editable" to false    
-		for (User u : userService.getUsers()){    
-			u.setEditable(false);   
-			}   
-		//return to current page   
-		return null;  
-	}
-	
-	public List<User> getUserList() {
-		return userList;
-	}
-
-	public IUserService getUserService() {
-		return userService;
-	}
-
-	public void setUserService(IUserService userService) {
-		this.userService = userService;
-	}
-
-	public void setUserList(List<User> userList) {
-		this.userList = userList;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public String getPw() {
-		return pw;
-	}
-
-	public void setPw(String pw) {
-		this.pw = pw;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 }
