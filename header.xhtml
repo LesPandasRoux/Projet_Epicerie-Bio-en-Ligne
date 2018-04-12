@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+      
+      
+    <body>
+	    <ui:composition>
+
+		<div id="container">
+       
+			<div id="panier">
+				<c:choose>
+					<c:when test="${empty admin ['sessionMB']}">
+					<p:commandButton value="Panier" id="panierbut" action="/pages/panier?faces-redirect=true" icon="ui-icon-cart" />
+						<br />
+					</c:when>
+					<c:otherwise>
+						<br />
+					</c:otherwise>
+				</c:choose>
+
+			</div>
+
+
+			<div id="connection">
+				<c:choose>
+					<c:when test="${not empty user['sessionMB']}">
+						<p:link  outcome="/pages/commande" value="Bonjour ${userMB.name}"></p:link>
+						<br />
+					</c:when>
+						<c:when test="${not empty admin['sessionMB']}">
+						admin
+						</c:when>
+						<c:otherwise>
+						<p:commandButton value="Se connecter" id="connectionbut" action="/pages/connexion?faces-redirect=true" icon="ui-icon-person" />
+							<br />
+						</c:otherwise>
+				</c:choose>
+			</div>
+		</div>
+
+	</ui:composition>
+    </body>
+</html>
