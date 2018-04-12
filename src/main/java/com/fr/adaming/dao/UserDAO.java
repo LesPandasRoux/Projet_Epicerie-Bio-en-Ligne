@@ -104,7 +104,7 @@ public class UserDAO implements IUserDAO {
 		 return list;
 	}
 
-	@Override
+	@Override 
 	public List<Role> getUserRoles(String email) {
 		// List list = getSessionFactory().getCurrentSession().createQuery("from Role
 		// where email = ?").list();
