@@ -24,32 +24,19 @@
 		</div>
 		<div id="content">
 
-			<h:form>
-				<table>
-					<tr>
-						<td><h:outputLabel for="email" value="Email : " /></td>
-						<td><p:inputText id="email" value="#{sessionMB.email}"  required="true">
-								<f:validateLength minimum="8" />
-								<p:ajax event="blur" update="emailMsg" />
-							</p:inputText> <p:message id="emailMsg" for="email" display="icon" /></td>
-					</tr>
-					<tr>
-						<td><h:outputLabel for="pw" value="Mot de passe : " /></td>
-						<td><p:password id="pw" value="#{sessionMB.pw}"  required="true">
-								<f:validateLength minimum="5" />
-								<p:ajax event="blur" update="pwMsg" />
-							</p:password> <p:message id="pwMsg" for="pw" display="icon" /></td>
-					</tr>
-					<tr>
-						<td><p:commandButton id="validerConnection" value="ok"
-								action="#{sessionMB.verifUser}" ajax="false" /></td>
-						<td><p:commandButton id="validerAdmin" value="Admin"
-								action="#{sessionMB.verifAdmin}" ajax="false" /></td>		
-					</tr>
-					<tr>
-					<td>Vous n'avez pas de compte ? <br/><p:link outcome="/pages/creationCompte.xhtml" value="Inscription" /></td>
-					</tr>
-				</table>
+			<h:form name="f" action="j_spring_security_check" method="post">
+				<p:panel header="Authentification">
+					<h:panelGrid columns="2">
+						<h:outputText value="E-Mail :" />
+						<h:inputText value="#{loginMB.email}"/>
+						<h:outputText value="Mot de passe :" />
+						<h:inputText value="#{loginMB.password}" />
+						<h:outputText value="Rester connecté ?" />
+						<input type="checkbox" name="../_spring_security_remember_me" />
+					</h:panelGrid>
+					<h:commandButton value="Se connecter" action="#{loginMB.login}" />
+					<input name="reset" type="reset" value="Effacer" />
+				</p:panel>
 			</h:form>
 
 
