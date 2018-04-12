@@ -7,6 +7,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -23,19 +26,21 @@ public class User {
 	private String pw;
 
 	private String email;
-	
-	private boolean editable;
 
+	private boolean editable;
 
 	@OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
 	private List<Commande> commande;
-	
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "ROLE_USERS", joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "idUser"), inverseJoinColumns = @JoinColumn(name = "ID_ROLE", referencedColumnName = "idRole"))
+	private List<Role> roles;
 
 	public User() {
 		super();
 	}
 
-	public User(int idUser, String prenom,String nom, String pw, String email) {
+	public User(int idUser, String prenom, String nom, String pw, String email) {
 		super();
 		this.idUser = idUser;
 		this.nom = nom;
@@ -100,11 +105,20 @@ public class User {
 		this.editable = editable;
 	}
 
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((commande == null) ? 0 : commande.hashCode());
+		result = prime * result + (editable ? 1231 : 1237);
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + idUser;
 		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
@@ -126,6 +140,8 @@ public class User {
 			if (other.commande != null)
 				return false;
 		} else if (!commande.equals(other.commande))
+			return false;
+		if (editable != other.editable)
 			return false;
 		if (email == null) {
 			if (other.email != null)
@@ -154,10 +170,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [idUser=" + idUser + ", nom=" + nom + ", prenom=" + prenom + ", pw=" + pw
-				+ ", email=" + email + "]";
+		return "User [idUser=" + idUser + ", nom=" + nom + ", prenom=" + prenom + ", pw=" + pw + ", email=" + email
+				+ "]";
 	}
-	
-	
 
 }
