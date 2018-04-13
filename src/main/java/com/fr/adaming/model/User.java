@@ -49,6 +49,14 @@ public class User {
 		this.email = email;
 	}
 
+	public User(String prenom, String nom, String pw, String email) {
+		super();
+		this.nom = nom;
+		this.prenom = prenom;
+		this.pw = pw;
+		this.email = email;
+	}
+	
 	public List<Commande> getCommande() {
 		return commande;
 	}

@@ -2,7 +2,6 @@ package com.fr.adaming.dao;
 
 import java.util.List;
 
-import com.fr.adaming.model.Administrateur;
 import com.fr.adaming.model.Produit;
 
 

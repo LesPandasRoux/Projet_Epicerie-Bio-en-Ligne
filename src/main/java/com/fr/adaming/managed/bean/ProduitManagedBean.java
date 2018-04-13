@@ -1,16 +1,12 @@
 package com.fr.adaming.managed.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
 
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
@@ -34,7 +30,7 @@ public class ProduitManagedBean implements Serializable {
 
 	List<Produit> produitList;
 
-	private int id;
+	private Long id;
 
 	private String libelle;
 
@@ -58,31 +54,29 @@ public class ProduitManagedBean implements Serializable {
 
 	public void onRowEdit(RowEditEvent event) {
 
-		FacesMessage msg = new FacesMessage("Le produit suivant a Ã©tÃ© Ã©ditÃ©:",
+		FacesMessage msg = new FacesMessage("Le produit suivant a été édité:",
 				((Produit) event.getObject()).getLibelle());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		getProduitService().updateProduit((Produit) event.getObject());
-		produitService.getProduits();
 
 	}
 
 	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Edition annulÃ©",
+		FacesMessage msg = new FacesMessage("Edition annulé",
 				((Produit) event.getObject()).getLibelle());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-		
 //		getProduitService().deleteProduit((Produit) event.getObject());
 	}
 
-//	public void onCellEdit(CellEditEvent event) {
-//		Object oldValue = event.getOldValue();
-//		Object newValue = event.getNewValue();
-//		if (newValue != null && !newValue.equals(oldValue)) {
-//			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed",
-//					"Old: " + oldValue + ", New:" + newValue);
-//			FacesContext.getCurrentInstance().addMessage(null, msg);
-//		}
-//	}
+	public void onCellEdit(CellEditEvent event) {
+		Object oldValue = event.getOldValue();
+		Object newValue = event.getNewValue();
+		if (newValue != null && !newValue.equals(oldValue)) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed",
+					"Old: " + oldValue + ", New:" + newValue);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+	}
 	
 	
 	public String[] getTypes() {
@@ -130,11 +124,11 @@ public class ProduitManagedBean implements Serializable {
 		this.produitList = produitList;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -173,13 +167,13 @@ public class ProduitManagedBean implements Serializable {
 	public void addProduit() {
 		try {
 			if (getTypes()[0].equals("ProduitFrais")) {
-			ProduitFrais produit = new ProduitFrais(getLibelle(), getPrix(), getQteStock(), getUrlimg(), getDureeValidite());
+			ProduitFrais produit = new ProduitFrais(getLibelle(), getPrix(), getQteStock(), getUrlimg(), 0, getDureeValidite());
 			produitService.addProduit(produit);
 			
 			}
 			
 			if (getTypes()[0].equals("Epicerie")) {
-				Epicerie produit = new Epicerie(getLibelle(), getPrix(), getQteStock(), getUrlimg(), getPoids());
+				Epicerie produit = new Epicerie(getLibelle(), getPrix(), getQteStock(), getUrlimg(), 0, getPoids());
 				produitService.addProduit(produit);
 			}
 		} catch (DataAccessException e) {
@@ -192,18 +186,10 @@ public class ProduitManagedBean implements Serializable {
 	}
 
 	public void reset() {
-		this.setId(0);
+		this.setId(0l);
 		this.setLibelle("produit");
 		this.setQteStock(0);
 		this.setPrix(0);
 	}
-
-	@Override
-	public String toString() {
-		return "ProduitManagedBean [id=" + id + ", libelle=" + libelle + ", prix=" + prix + ", qteStock=" + qteStock
-				+ ", poids=" + poids + ", dureeValidite=" + dureeValidite + ", urlimg=" + urlimg + "]";
-	}
-	
-	
 
 }

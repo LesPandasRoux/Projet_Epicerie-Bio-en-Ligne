@@ -36,7 +36,7 @@ public class UserManagedBean implements Serializable {
 	private static final String SUCCESS = "success";
 	private static final String ERROR = "error";
 	private static final String PANIER = "panier";
-	private static final String CONNEXION = "connexionUser";
+	private static final String CONNEXION = "connexion";
 //	private static final String CREACOMPTE = "creationCompte";
 
 	@Autowired

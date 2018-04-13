@@ -9,6 +9,25 @@ public class Epicerie extends Produit {
 
 	private int poids;
 
+	public Epicerie(int idProduit, String libelle, float prix, int qteStock, int qtePanier, int poids) {
+		super(idProduit, libelle, prix, qteStock);
+		this.poids = poids;
+	}
+
+	public Epicerie(String libelle, float prix, int qteStock, String urlimg, int qtePanier, int poids) {
+		super(libelle, prix, qteStock, urlimg);
+		this.poids = poids;
+	}
+
+	public Epicerie(int idProduit, String libelle, float prix, int qteStock, String urlimg, int qtePanier, int poids) {
+		super(idProduit, libelle, prix, qteStock, urlimg);
+		this.poids = poids;
+	}
+
+	public Epicerie() {
+		super();
+	}
+
 	public int getPoids() {
 		return poids;
 	}
@@ -17,34 +36,4 @@ public class Epicerie extends Produit {
 		this.poids = poids;
 	}
 
-	public Epicerie(int idProduit, String libelle, float prix, int qteStock, int poids) {
-		super(idProduit, libelle, prix, qteStock);
-		this.poids = poids;
-		this.type = "Epicerie";
-	}
-	
-
-	public Epicerie(String libelle, float prix, int qteStock, String urlimg, int poids) {
-		super(libelle, prix, qteStock, urlimg);
-		this.poids = poids;
-		this.type = "Epicerie";
-	}
-
-	public Epicerie(int idProduit, String libelle, float prix, int qteStock, String urlimg, int poids) {
-		super(idProduit, libelle, prix, qteStock, urlimg);
-		this.poids = poids;
-		this.type = "Epicerie";
-	}
-
-	public Epicerie() {
-		super();
-		this.type = "Epicerie";
-	}
-
-	public Epicerie(String libelle, float prix, int qteStock, String urlimg, int qtePanier, int poids) {
-		super(libelle, prix, qteStock, urlimg, qtePanier);
-		this.poids = poids;
-	}
-	
-	
 }
