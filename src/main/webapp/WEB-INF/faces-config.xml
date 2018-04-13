@@ -12,9 +12,8 @@
     		org.springframework.web.jsf.el.SpringBeanFacesELResolver
     	</el-resolver>
   	</application>
-	
-	<validator>
-<!-- 		<message-bundle>ValidatorMessages</message-bundle> -->
+  	
+  	<validator>
 		<validator-id>MyValidatorBean</validator-id>
 		<validator-class>com.fr.adaming.managed.bean.ValidatorBean</validator-class>
 	</validator>
@@ -22,15 +21,7 @@
 	<!-- configuration of navigation rules -->	
 	<navigation-rule>
         
-        <from-view-id>/pages/security/user/indexEBL.xhtml</from-view-id> 
-	    <navigation-case>
-	        <from-outcome>correct</from-outcome>
-            <to-view-id>/pages/security/user/panier.xhtml</to-view-id>
-        </navigation-case>
-         <navigation-case>
-	        <from-outcome>incorrect</from-outcome>
-            <to-view-id>/pages/security/user/connexion.xhtml</to-view-id>
-        </navigation-case>
+        <from-view-id>/pages/security/user/indexEBL.xhtml</from-view-id>       
         <navigation-case>
 	        <from-outcome>goToPanier</from-outcome>
             <to-view-id>/pages/security/user/panier.xhtml</to-view-id>
@@ -42,6 +33,44 @@
         <navigation-case>
 	        <from-outcome>goToConnexion</from-outcome>
             <to-view-id>/pages/security/user/connexion.xhtml</to-view-id>
+        </navigation-case>
+        
+    </navigation-rule>
+    
+    <navigation-rule>
+        
+        <from-view-id>/pages/security/user/connexion.xhtml</from-view-id> 
+	    <navigation-case>
+	        <from-outcome>correct</from-outcome>
+            <to-view-id>/pages/security/user/remplirPanier.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+	        <from-outcome>incorrect</from-outcome>
+            <to-view-id>/pages/security/user/error.xhtml</to-view-id>
+        </navigation-case>
+        
+    </navigation-rule>
+    
+    <navigation-rule>
+        
+        <from-view-id>/pages/security/user/panier.xhtml</from-view-id>       
+        <navigation-case>
+	        <from-outcome>goToPanier</from-outcome>
+            <to-view-id>/pages/security/user/panier.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+	        <from-outcome>goToCommande</from-outcome>
+            <to-view-id>/pages/security/user/commande.xhtml</to-view-id>
+        </navigation-case>
+        
+    </navigation-rule>
+    
+    <navigation-rule>
+        
+        <from-view-id>/pages/security/user/remplirPanier.xhtml</from-view-id>       
+        <navigation-case>
+	        <from-outcome>goToPanier</from-outcome>
+            <to-view-id>/pages/security/user/panier.xhtml</to-view-id>
         </navigation-case>
         
     </navigation-rule>

@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fr.adaming.model.Role;
-import com.fr.adaming.model.User;
+
 @Repository
 @Transactional
-public class RoleDAO implements IRoleDAO{
+public class RoleDAO implements IRoleDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -20,31 +20,31 @@ public class RoleDAO implements IRoleDAO{
 	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+		this.sessionFactory = sessionFactory;
+	}
 
 	@Override
 	public void addRole(Role role) {
 		getSessionFactory().getCurrentSession().save(role);
-		
+
 	}
 
 	@Override
 	public void updateRole(Role role) {
 		getSessionFactory().getCurrentSession().update(role);
-		
+
 	}
 
 	@Override
 	public void deleteRole(Role role) {
 		getSessionFactory().getCurrentSession().delete(role);
-		
+
 	}
 
 	@Override
 	public Role getRoleById(int id) {
 		Role role = (Role) getSessionFactory().getCurrentSession().get(Role.class, id);
-        return role;
+		return role;
 	}
 
 	@Override

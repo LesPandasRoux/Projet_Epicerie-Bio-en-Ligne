@@ -10,25 +10,25 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
 public class ValidatorBean implements Validator {
-    //validation de l'email
+	// validation de l'email
 	private String email;
 
-    private static final String EMAIL_REGEXP = "^[_A-Za-z0-9-]*@[A-Za-z0-9]*";
+	private static final String EMAIL_REGEXP = "^[_A-Za-z0-9-]*@[A-Za-z0-9]*";
 
-    @Override
-    public void validate(FacesContext context, UIComponent c, Object val) throws ValidatorException {
-        String email = (String) val;
-        Pattern mask = null;
-        mask = Pattern.compile(EMAIL_REGEXP);
-        Matcher matcher = mask.matcher(email);
-        if (!matcher.matches()) {
-            FacesMessage message = new FacesMessage();
-            message.setDetail("Please enter a valid email");
-            message.setSummary("Email not valid");
-            message.setSeverity(FacesMessage.SEVERITY_ERROR);
-            throw new ValidatorException(message);
-        }
-    }
+	@Override
+	public void validate(FacesContext context, UIComponent c, Object val) throws ValidatorException {
+		String email = (String) val;
+		Pattern mask = null;
+		mask = Pattern.compile(EMAIL_REGEXP);
+		Matcher matcher = mask.matcher(email);
+		if (!matcher.matches()) {
+			FacesMessage message = new FacesMessage();
+			message.setDetail("Please enter a valid email");
+			message.setSummary("Email not valid");
+			message.setSeverity(FacesMessage.SEVERITY_ERROR);
+			throw new ValidatorException(message);
+		}
+	}
 
 	public String getEmail() {
 		return email;
@@ -37,6 +37,5 @@ public class ValidatorBean implements Validator {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-    
-    
+
 }

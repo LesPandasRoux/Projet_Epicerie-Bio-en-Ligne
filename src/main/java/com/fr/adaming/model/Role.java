@@ -19,12 +19,17 @@ public class Role {
 
 	private String role;
 
-	@ManyToMany(mappedBy="roles",fetch=FetchType.EAGER)
+	@ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
 	private List<User> users;
 
 	public Role() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public Role(String role) {
+		super();
+		this.role = role;
 	}
 
 	public Role(String roleName, List<User> users) {
