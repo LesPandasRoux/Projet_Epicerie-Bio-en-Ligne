@@ -13,19 +13,11 @@
 	    <ui:composition>
 
 		<div id="container">
-			<div id="logo">
-				<p:graphicImage value="/css/images/logoproj.png" />
-
-			</div>
-
-			<div id="nomEpicerie">
-				<h1>Epicerie Bio en ligne</h1>
-			</div>
-
+       
 			<div id="panier">
 				<c:choose>
 					<c:when test="${empty admin ['sessionMB']}">
-					<p:link  outcome="/pages/panier" value="Panier"></p:link>
+					<p:commandButton value="Panier" id="panierbut" action="/pages/panier?faces-redirect=true" icon="ui-icon-cart" />
 						<br />
 					</c:when>
 					<c:otherwise>
@@ -46,7 +38,7 @@
 						admin
 						</c:when>
 						<c:otherwise>
-							<p:link  outcome="/pages/connexion.xhtml" value="Se connecter"></p:link>
+						<p:commandButton value="Se connecter" id="connectionbut" action="/pages/connexion?faces-redirect=true" icon="ui-icon-person" />
 							<br />
 						</c:otherwise>
 				</c:choose>
