@@ -33,8 +33,6 @@ import com.fr.adaming.service.IProduitService;
  *
  */
 
-//IL MANQUE LE USER
-
 @Controller(value = "panierMB")
 @SessionScoped
 public class PanierManagedBean implements Serializable {
