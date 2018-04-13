@@ -11,43 +11,83 @@
 <f:view contentType="text/html">
 
 	<h:head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title><ui:insert name="title" />Authentification administrateur</title>
-		
-		<link href='http://fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'/>
+	<link rel="stylesheet" type="text/css"	href="${request.contextPath}/css/newStyle.css" />
+				<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title><ui:insert name="title" />EBL</title>
 
-		<link rel="stylesheet" type="text/css"
-			href="${request.contextPath}/css/styleEBL.css"/>
-		<link rel="shortcut icon"
-			href="${request.contextPath}/css/images/logoprojsb.png" />
+				<link href='http://fonts.googleapis.com/css?family=Berkshire+Swash'
+					rel='stylesheet' type='text/css' />
+
+				
+				<link rel="shortcut icon"	href="${request.contextPath}/css/images/logoprojsb.png" />
+				
 	</h:head>
 
 	<h:body>
-		
-			<div id="container">
-			
-				<div class="Epicerie">
-					<div class="boxLogo">
-						<p:graphicImage id="logo" value="/css/images/logoprojsb.png" width="100px" />
-					</div>
-					
-					<div class="boxNomEp">
-						<h1 id="nomEp">Epicerie Bio en Ligne</h1>
-					</div>
-				</div>
 
-		
-			<div id="line" />
-			
-			<div id="content">
-				<ui:insert name="content" />
+		<p:layout fullPage="true" >
+				<p:layoutUnit styleClass="header" position="north" size="280" collapsible="true" >
+					<p:panelGrid columns="6" >
+					<p:panel>
+						<div class="boxLogo">
+							<p:graphicImage id="logo" value="/css/images/logoproj.png"
+								width="100px" />
+						</div>
+						</p:panel>
+						<p:panel>
+						<div class="boxNomEp">
+							<h1 id="nomEp">Epicerie Bio en Ligne</h1>
+						</div>
+						</p:panel>
+						<p:panel></p:panel>
+						<p:panel></p:panel>
+						<p:panel>
+						<div id="panier">
+							<c:choose>
+								<c:when test="${empty admin ['sessionMB']}">
+									<p:link outcome="/pages/panier" value="Panier"></p:link>
+									<br />
+								</c:when>
+								<c:otherwise>
+									<br />
+								</c:otherwise>
+							</c:choose>
+						</div>
+						</p:panel>
+						<p:panel>
+						<div id="connection">
+							<c:choose>
+								<c:when test="${not empty user['sessionMB']}">
+									<p:link outcome="/pages/commande"
+										value="Bonjour ${userMB.name}"></p:link>
+									<br />
+								</c:when>
+								<c:when test="${not empty admin['sessionMB']}">
+								admin
+								</c:when>
+								<c:otherwise>
+									<p:link outcome="/pages/connexion.xhtml" value="Se connecter"></p:link>
+									<br />
+								</c:otherwise>
+							</c:choose>
+						</div>
+						</p:panel>
+					</p:panelGrid>
+				</p:layoutUnit>
+
+				<p:layoutUnit position="west" size="300" resizable="true"
+					closable="true" collapsible="true">
+					<h:outputText value="Menu" />
+					<ui:insert name="menu">
+						<ui:include src="/pages/menu.xhtml" />
+					</ui:insert>
+				</p:layoutUnit>
+
+				<p:layoutUnit position="center">
+					<ui:insert name="content" />
+				</p:layoutUnit>
 				
-			</div>
-			
-			<div id="footer">
-				<ui:insert name="footer" />
-			</div>
-		</div>
+		</p:layout>
 	</h:body>
 
 </f:view>
