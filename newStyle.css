@@ -1,3 +1,8 @@
+
+#j_idt10-resizer{
+	background-color: orange;
+	height: 2px;
+}
 .ui-panelgrid .ui-widget{
 position:relative;
 border: 2px solid #cecece;
@@ -23,8 +28,7 @@ text-align:center;
 }
 
 .ui-layout-unit-content .ui-widget-content{
-	border-style: hidden;
-
+	border-style: hidden
 }
 .ui-layout-unit .ui-widget .ui-widget-content .ui-corner-all .ui-layout-north .header .ui-layout-pane .ui-layout-pane-north{
 	border-style: hidden;

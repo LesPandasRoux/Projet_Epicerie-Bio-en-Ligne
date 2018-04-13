@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view contentType="text/html">
+
+	<h:head>
+		<link rel="stylesheet" type="text/css"
+			href="${request.contextPath}/css/newStyle.css" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title><ui:insert name="title" />EBL</title>
+
+		<link href='http://fonts.googleapis.com/css?family=Berkshire+Swash'
+			rel='stylesheet' type='text/css' />
+
+
+		<link rel="shortcut icon"
+			href="${request.contextPath}/css/images/logoprojsb.png" />
+
+	</h:head>
+
+	<h:body>
+
+		<p:layout fullPage="true">
+			<p:layoutUnit styleClass="header" position="north" size="280">
+				<p:panelGrid columns="6">
+					<p:panel styleClass="panelHeader">
+						<div class="boxLogo">
+						<p:link id="idIndex" outcome="/pages/indexEBL" >
+							<p:graphicImage id="logo" value="/css/images/logoproj.png"
+								width="100px" /></p:link>
+						</div>
+					</p:panel>
+					<p:panel styleClass="panelHeader">
+						<div class="boxNomEp">
+							<h1 id="nomEp">Epicerie Bio en Ligne</h1>
+						</div>
+					</p:panel>
+					<p:panel styleClass="panelHeader">          </p:panel>
+					<p:panel styleClass="panelHeader">          </p:panel>
+					<p:panel styleClass="panelHeader">
+						<div id="panier">
+							<c:choose>
+								<c:when test="${empty admin ['sessionMB']}">
+									<p:link outcome="/pages/panier" value="Panier"></p:link>
+									<br />
+								</c:when>
+								<c:otherwise>
+									<br />
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</p:panel>
+					<p:panel styleClass="panelHeader">
+						<div id="connection">
+							<c:choose>
+								<c:when test="${not empty user['sessionMB']}">
+									<p:link outcome="/pages/commande"
+										value="Bonjour ${userMB.name}"></p:link>
+									<br />
+								</c:when>
+								<c:when test="${not empty admin['sessionMB']}">
+								admin
+								</c:when>
+								<c:otherwise>
+									<p:link outcome="/pages/connexion.xhtml" value="Se connecter"></p:link>
+									<br />
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</p:panel>
+				</p:panelGrid>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="west" size="300" resizable="true"
+				closable="true" collapsible="true">
+				<h:outputText value="Menu" />
+				<ui:insert name="menu">
+					<ui:include src="/pages/menu.xhtml" />
+				</ui:insert>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="center">
+				<ui:insert name="content" />
+			</p:layoutUnit>
+
+		</p:layout>
+	</h:body>
+
+</f:view>
+</html>
