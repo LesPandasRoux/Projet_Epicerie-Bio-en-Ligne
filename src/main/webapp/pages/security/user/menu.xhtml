@@ -8,20 +8,22 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
       
+      
     <body>
-    
 	    <ui:composition>
-	
+		
 		<div id="menu">
-
-			<div id="tousProduit">
-				<p:link  outcome="/pages/security/user/remplirPanier.xhtml" value="Tous les produit"></p:link>
-			</div>
-
+			<h:form>
+				 <p:menu>
+				  <p:menuitem value="Tous les produits" action="/pages/RemplirPanier?faces-redirect=true" />
+				  <p:menuitem value="Produits frais" action="/pages/RemplirPanier?faces-redirect=true" />
+				  <p:menuitem value="Epicerie" action="/pages/RemplirPanier?faces-redirect=true" />
+				  </p:menu>
+			</h:form>
 		</div>
+
+
 					
 	    </ui:composition>
-	    
     </body>
-    
 </html>
