@@ -7,21 +7,28 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
+      
+      
+    <body>
+	    <ui:composition>
+	
+		<div id="menu">
 
 
-<body>
-	<ui:composition>
+			<div id="tousProduit">
+				<p:link  outcome="/pages/remplirPanier.xhtml" value="Tous les produit"></p:link>
+			</div>
+			
+			<div id="produitsFrais">
+				<p:link  outcome="/pages/remplirPanier.xhtml" value="Produit Frais"></p:link>
+			</div>
+			
+			<div id="epicerie">
+				<p:link  outcome="/pages/remplirPanier.xhtml" value="Produit d'épicerie"></p:link>
+			</div>
 
-		<div id="menur">
-			<h:form>
-				 <p:menu>
-				  <p:menuitem value="Tous les produits" action="/pages/RemplirPanier?faces-redirect=true" />
-				  <p:menuitem value="Produits frais" action="/pages/RemplirPanier?faces-redirect=true" />
-				  <p:menuitem value="Epicerie" action="/pages/RemplirPanier?faces-redirect=true" />
-				  </p:menu>
-			</h:form>
 		</div>
-
-	</ui:composition>
-</body>
+					
+	    </ui:composition>
+    </body>
 </html>
