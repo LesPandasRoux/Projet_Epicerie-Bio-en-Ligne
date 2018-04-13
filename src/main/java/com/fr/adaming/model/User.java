@@ -56,7 +56,16 @@ public class User {
 		this.pw = pw;
 		this.email = email;
 	}
-	
+
+	public User(String nom, String prenom, String pw, String email, List<Role> roles) {
+		super();
+		this.nom = nom;
+		this.prenom = prenom;
+		this.pw = pw;
+		this.email = email;
+		this.roles = roles;
+	}
+
 	public List<Commande> getCommande() {
 		return commande;
 	}

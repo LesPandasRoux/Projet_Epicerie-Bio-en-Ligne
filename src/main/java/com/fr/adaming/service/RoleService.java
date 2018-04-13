@@ -2,11 +2,14 @@ package com.fr.adaming.service;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fr.adaming.dao.IRoleDAO;
+import com.fr.adaming.dao.IUserDAO;
 import com.fr.adaming.model.Role;
 
 @Transactional(readOnly = true)
@@ -15,7 +18,7 @@ public class RoleService implements IRoleService {
 
 	@Autowired
 	IRoleDAO roleDAO;
-	
+
 	@Transactional(readOnly = false)
 	@Override
 	public void addRole(Role role) {
@@ -27,20 +30,20 @@ public class RoleService implements IRoleService {
 	public void deleteRole(Role role) {
 		getRoleDAO().deleteRole(role);
 	}
-	
+
 	@Transactional(readOnly = false)
 	@Override
 	public void updateRole(Role role) {
 		getRoleDAO().updateRole(role);
 	}
-	
+
 	@Override
 	public Role getRoleById(int id) {
 		return getRoleDAO().getRoleById(id);
 	}
 
 	@Override
-	public List<Role> getRoles() {	
+	public List<Role> getRoles() {
 		return getRoleDAO().getRoles();
 	}
 

@@ -69,14 +69,16 @@ public class CommandeManagedBean implements Serializable {
 
 	public void recupID(ActionEvent event) {
 		idPanier = (Integer) event.getComponent().getAttributes().get("idPanier");
-		System.out.println(idPanier);
+		int idUser = Integer.parseInt(event.getComponent().getAttributes().get("id"));
+		setOwner(userService.getUserById(idUser));
+//		System.out.println(idPanier);
 	}
 
 	public String validerCommande() {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		LocalDate localDate = LocalDate.now();
 		Panier panier = panierService.getPanierById(idPanier);
-		Commande commande = new Commande(userService.getUserById(1), dtf.format(localDate), "en cours de préparation",
+		Commande commande = new Commande(getOwner(), dtf.format(localDate), "en cours de préparation",
 				panier);
 		commandeService.addCommande(commande);
 

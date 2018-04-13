@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fr.adaming.dao.IRoleDAO;
 import com.fr.adaming.dao.IUserDAO;
+import com.fr.adaming.model.Role;
 import com.fr.adaming.model.User;
 
 /**
@@ -28,13 +30,16 @@ public class UserService implements IUserService {
 	@Autowired
 	IUserDAO userDAO;
 
+	@Autowired
+	IRoleDAO roleDAO;
+
 	/**
 	 * Add User
 	 * 
 	 * @param User
 	 *            user
 	 */
-	
+
 	@Transactional(readOnly = false)
 	public void addUser(User user) {
 		getUserDAO().addUser(user);
@@ -98,17 +103,22 @@ public class UserService implements IUserService {
 	public void setUserDAO(IUserDAO userDAO) {
 		this.userDAO = userDAO;
 	}
-	
-	@PostConstruct
-	private void init() {
-		addUser(new User("Didier", "Pelat", "DP001", "didier.pelat@gmailcom"));
-		addUser(new User("Laure", "Bourgois", "LB002", "laure.bourgois@gmailcom"));
-		addUser(new User("Sylvain", "Henry", "SH003", "sylvain.henry@gmail.com"));
-		addUser(new User("Jim", "Alec", "JA004", "jim.alec@gmail.com"));
-	}
 
 	public User findbyEmail(String email) {
 		return getUserDAO().getUserByEmail(email);
 	}
-	
+
+	@PostConstruct
+	private void init() {
+		
+		roleDAO.addRole(new Role("ROLE_USER"));
+		roleDAO.addRole(new Role("ROLE_ADMIN"));
+		
+		addUser(new User("Didier", "Pelat", "DP001", "didierpelat@gmailcom", roleDAO.getRoles().subList(0, 1)));
+		addUser(new User("Laure", "Bourgois", "LB002", "laurebourgois@gmailcom", roleDAO.getRoles().subList(0, 1)));
+		addUser(new User("Sylvain", "Henry", "SH003", "sylvainhenry@gmailcom", roleDAO.getRoles().subList(0, 2)));
+		addUser(new User("Jim", "Alec", "JA004", "jimalec@gmailcom", roleDAO.getRoles().subList(0, 2)));
+
+	}
+
 }

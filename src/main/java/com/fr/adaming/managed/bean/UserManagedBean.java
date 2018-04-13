@@ -33,7 +33,7 @@ import com.fr.adaming.service.IUserService;
 public class UserManagedBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private static final String SUCCESS = "success";
+	private static final String REMPLIR_PANIER = "remplirPanier";
 	private static final String ERROR = "error";
 	private static final String PANIER = "panier";
 	private static final String CONNEXION = "connexion";
@@ -92,7 +92,7 @@ public class UserManagedBean implements Serializable {
 			user.setEmail(getEmail());
 			user.setPw(getPw());
 			userService.addUser(user);
-			return SUCCESS;
+			return CONNEXION;
 		} catch (DataAccessException e) {
 			e.printStackTrace();
 		}
@@ -113,7 +113,7 @@ public class UserManagedBean implements Serializable {
 		User user = getUserService().findbyEmail(email);
 		if (user !=null) {
 			if (user.getPw().equals(pw)) {
-				return PANIER;
+				return REMPLIR_PANIER;
 			}
 		}
 		return CONNEXION;
