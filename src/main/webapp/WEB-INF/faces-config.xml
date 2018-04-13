@@ -13,6 +13,12 @@
     	</el-resolver>
   	</application>
 	
+	<validator>
+<!-- 		<message-bundle>ValidatorMessages</message-bundle> -->
+		<validator-id>MyValidatorBean</validator-id>
+		<validator-class>com.fr.adaming.managed.bean.ValidatorBean</validator-class>
+	</validator>
+	
 	<!-- configuration of navigation rules -->	
 	<navigation-rule>
         
