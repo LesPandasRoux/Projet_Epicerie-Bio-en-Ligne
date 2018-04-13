@@ -14,6 +14,7 @@ import org.primefaces.event.RowEditEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fr.adaming.model.Produit;
 import com.fr.adaming.model.ProduitFrais;
@@ -31,6 +32,8 @@ import com.fr.adaming.service.IProduitService;
  * @version 1.0.0
  *
  */
+
+//IL MANQUE LE USER
 
 @Controller(value = "panierMB")
 @SessionScoped
@@ -118,13 +121,21 @@ public class PanierManagedBean implements Serializable {
 		System.out.println(produitsDuPanier);
 	}
 	
+
 	public void onRowEdit(RowEditEvent event) {
 
 		FacesMessage msg = new FacesMessage("Le produit suivant a été modifié:",
 				((Produit) event.getObject()).getLibelle());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		int idProd = ((Produit) event.getObject()).getIdProduit();
-		getProduitsDuPanier().get(idProd-1).setQtePanier(((Produit) event.getObject()).getQtePanier());
+		for (Produit p : getProduitsDuPanier()) {
+			if(p.getIdProduit()==idProd) {
+				int i = getProduitsDuPanier().indexOf(p);
+				getProduitsDuPanier().get(i).setQtePanier(((Produit) event.getObject()).getQtePanier());
+			}
+		}
+		getPanierList().get(getPanierList().size()-1).setProduits(getProduitsDuPanier());
+		panierService.updatePanier(getPanierList().get(getPanierList().size()-1));
 
 	}
 
@@ -218,6 +229,22 @@ public class PanierManagedBean implements Serializable {
 
 	public void setIdPanier(int idPanier) {
 		this.idPanier = idPanier;
+	}
+
+	public IPanierService getPanierService() {
+		return panierService;
+	}
+
+	public void setPanierService(IPanierService panierService) {
+		this.panierService = panierService;
+	}
+
+	public IProduitService getProduitService() {
+		return produitService;
+	}
+
+	public void setProduitService(IProduitService produitService) {
+		this.produitService = produitService;
 	}
 	
 	
