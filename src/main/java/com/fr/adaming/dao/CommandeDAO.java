@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fr.adaming.model.Commande;
-import com.fr.adaming.model.User;
+
 @Repository
 @Transactional
 public class CommandeDAO implements ICommandeDAO{

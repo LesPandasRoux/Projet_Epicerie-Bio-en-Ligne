@@ -2,8 +2,6 @@ package com.fr.adaming.model;
 
 import java.util.List;
 
-
-
 import javax.persistence.Entity;
 
 import javax.persistence.GeneratedValue;
@@ -28,10 +26,8 @@ public class Commande {
 	private String etatCommande;
 
 	@OneToOne
-	@JoinColumn(name="fk_panier",referencedColumnName="idPanier")
+	@JoinColumn(name = "fk_panier", referencedColumnName = "idPanier")
 	private Panier panier;
-	
-	
 
 	public Commande() {
 		super();
@@ -69,7 +65,6 @@ public class Commande {
 		this.dateCMD = dateCMD;
 	}
 
-
 	public String getEtatCommande() {
 		return etatCommande;
 	}
@@ -85,7 +80,5 @@ public class Commande {
 	public void setPanier(Panier panier) {
 		this.panier = panier;
 	}
-	
-	
 
 }

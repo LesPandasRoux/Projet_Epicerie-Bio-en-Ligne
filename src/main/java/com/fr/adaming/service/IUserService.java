@@ -51,4 +51,5 @@ public interface IUserService {
 	public List<User> getUsers();
 	
 	public User findbyEmail(String email);
+	
 }

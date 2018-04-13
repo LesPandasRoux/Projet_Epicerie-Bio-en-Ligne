@@ -1,7 +1,5 @@
 package com.fr.adaming.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -30,16 +28,12 @@ public class UserService implements IUserService {
 	@Autowired
 	IUserDAO userDAO;
 
-
-	
 	/**
 	 * Add User
 	 * 
 	 * @param User
 	 *            user
 	 */
-	
-	
 	
 	@Transactional(readOnly = false)
 	public void addUser(User user) {
@@ -105,14 +99,13 @@ public class UserService implements IUserService {
 		this.userDAO = userDAO;
 	}
 	
-//	private int i=1;
-//	@PostConstruct
-//	private void init() {
-//		addUser(new User(i++, "Didier", "Pelat","DP001","didier.pelat@gmailcom"));
-//		addUser(new User(i++, "Laure", "Bourgois","LB002","laure.bourgois@gmailcom"));
-//		addUser(new User(i++, "Sylvain", "Henry","SH003","sylvain.henry@gmail.com"));
-//		addUser(new User(i++, "Jim", "Alec","JA004","jim.alec@gmail.com"));
-//	}
+	@PostConstruct
+	private void init() {
+		addUser(new User("Didier", "Pelat", "DP001", "didier.pelat@gmailcom"));
+		addUser(new User("Laure", "Bourgois", "LB002", "laure.bourgois@gmailcom"));
+		addUser(new User("Sylvain", "Henry", "SH003", "sylvain.henry@gmail.com"));
+		addUser(new User("Jim", "Alec", "JA004", "jim.alec@gmail.com"));
+	}
 
 	public User findbyEmail(String email) {
 		return getUserDAO().getUserByEmail(email);

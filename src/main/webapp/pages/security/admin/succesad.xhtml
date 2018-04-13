@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Menu Administrateur</title>
+</h:head>
+<h:body>
+	<h:form>
+		<table>
+			<tr>
+				<td><p:commandButton id="voirClients" value="Consulter la liste des clients"
+						action="vueClientad.xhtml" ajax="false" /></td>
+			</tr>
+			<tr>
+				<td><p:commandButton id="voirProduit" value="Consulter la liste des produits"
+						action="vueProduitad.xhtml" ajax="false" /></td>
+			</tr>
+		</table>
+	</h:form>
+</h:body>
+
+</html>

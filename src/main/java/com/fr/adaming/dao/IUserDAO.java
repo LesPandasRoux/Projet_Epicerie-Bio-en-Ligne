@@ -2,6 +2,7 @@ package com.fr.adaming.dao;
 
 import java.util.List;
 
+import com.fr.adaming.model.Role;
 import com.fr.adaming.model.User;
 
 public interface IUserDAO {
@@ -40,4 +41,7 @@ public interface IUserDAO {
 	public List<User> getUsers();
 
 	public User getUserByEmail(String email);
+	
+	public List<Role> getUserRoles(String email );
+	
 }

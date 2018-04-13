@@ -3,7 +3,6 @@ package com.fr.adaming.managed.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
@@ -12,13 +11,9 @@ import javax.faces.event.ActionEvent;
 
 import org.primefaces.event.RowEditEvent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.fr.adaming.model.Produit;
-import com.fr.adaming.model.ProduitFrais;
-import com.fr.adaming.model.Epicerie;
 import com.fr.adaming.model.Panier;
 import com.fr.adaming.service.IPanierService;
 import com.fr.adaming.service.IProduitService;
@@ -122,7 +117,7 @@ public class PanierManagedBean implements Serializable {
 
 	public void onRowEdit(RowEditEvent event) {
 
-		FacesMessage msg = new FacesMessage("Le produit suivant a Ã©tÃ© modifiÃ©:",
+		FacesMessage msg = new FacesMessage("Le produit suivant a été modifié:",
 				((Produit) event.getObject()).getLibelle());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		int idProd = ((Produit) event.getObject()).getIdProduit();
@@ -138,7 +133,7 @@ public class PanierManagedBean implements Serializable {
 	}
 
 	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Edition annulÃ©",
+		FacesMessage msg = new FacesMessage("Edition annulé",
 				((Produit) event.getObject()).getLibelle());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
@@ -165,7 +160,7 @@ public class PanierManagedBean implements Serializable {
 		panierList.add(panier);
 		idPanier=panierList.size();
 		System.out.println("/n" +panierList);
-		return "valider";
+		return "goToPanier";
 	}
 	
 	public Panier panierEnCours() {

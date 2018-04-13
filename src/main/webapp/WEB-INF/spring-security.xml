@@ -9,10 +9,12 @@ http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security.xsd">
 
 	<http auto-config="true">
-		<intercept-url pattern="/pages**" access="ROLE_USER" />
-		<form-login login-page="/pages/connexion.xhtml"
-			default-target-url="/pages/panier.xhtml"
-			authentication-failure-url="/pages/connexion.xhtml?status=error" />
+		<intercept-url pattern="/pages/security/user**" access="hasRole('ROLE_ANONYMOUS')"/>
+		<intercept-url pattern="/pages/security/user**" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/pages/security/admin**" access="hasRole('ROLE_ADMIN')" />
+		<form-login login-page="/pages/security/user/connexion.xhtml"
+			default-target-url="/pages/security/user/remplirPanier.xhtml"
+			authentication-failure-url="/pages/security/user/error.xhtml?status=error"/>
 		<logout
 			logout-success-url="/pages/connexion.xhtml?status=logout" />
 	</http>

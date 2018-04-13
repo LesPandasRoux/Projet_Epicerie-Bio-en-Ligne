@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fr.adaming.model.Produit;
-import com.fr.adaming.model.Produit;
+
 @Repository
 @Transactional
-public class ProduitDAO implements IProduitDAO{
+public class ProduitDAO implements IProduitDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -20,27 +20,27 @@ public class ProduitDAO implements IProduitDAO{
 	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+		this.sessionFactory = sessionFactory;
+	}
 
 	public void addProduit(Produit produit) {
 		getSessionFactory().getCurrentSession().save(produit);
-		
+
 	}
 
 	public void updateProduit(Produit produit) {
 		getSessionFactory().getCurrentSession().update(produit);
-		
+
 	}
 
 	public void deleteProduit(Produit produit) {
 		getSessionFactory().getCurrentSession().delete(produit);
-		
+
 	}
 
 	public Produit getProduitById(int id) {
 		Produit produit = (Produit) getSessionFactory().getCurrentSession().get(Produit.class, id);
-        return produit;
+		return produit;
 	}
 
 	public List<Produit> getProduits() {
